@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>body{padding:0; margin:0;font:sans-serif;}
+#word{transition: opacity 0.5s ease; font-size: 15vw;}
+a {color: inherit;text-decoration: inherit;}
+</style>
+
+<title>1000 Miles - Word game</title>
+</head><body onload="init()">
+
+<img src="../common/logo.png" style="position: fixed; bottom: 1em; left: 0; z-index: -1; width: 100vmin;"/>
+<div> <a href="/miles/" style="position:fixed; top: 0.1em; left: 0.1em; font-size: 2em;">&larr;</a></div>
+
+<div style="text-align: center;">
+	<div id="word"></div>
+</div>
+<div style="text-align: center;"> 
+	<button id="btnNext" style="font-size: 3em;">Next</button>
+	<div id="wordCnt" style="font-size: 2em;">Loading...</div>
+</div>
+
+<div style="font-size: 0.5em; position: fixed; bottom: 0.1em; left: 1em;">Programmed by Safwat. Last update: 08/07/2017</div>
+
+<script src="/miles/common/s.js"></script>
+<script src="s.js"></script>
+</body></html>

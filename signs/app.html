@@ -1,0 +1,35 @@
+<!doctype html><html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>Safwat's Alignment Analyzer</title>
+</head><body>
+<a id="mainMenuLink" href="index.html">Main menu</a>
+
+<div id="menu1" class="menu1_full"> <!-- File dragging and title are here -->
+	<div id="menu1_message">Drop an ELAN TXT export here</div>
+	<div id="menu1_sample_button"><a href="#">or Click here for a sample</a></div>
+	<button id="menu1_button" class="hidden">Restart</button>
+</div>
+
+<div id="menu2" class="grayMenu hidden"> <!-- Config stage is done here -->
+	<div class="bigTitle">Setup - <label id="menu2_title"></label></div>
+	<div id="menu2_body">
+	</div>
+	<div id="menu2_footer">
+		<div class="floatParent">
+			<div id="menu2_sub1" class="setupProgress floatLeft">1. Raw columns</div><div class="floatLeft">></div>
+			<div id="menu2_sub2" class="setupProgress floatLeft">2. Function-tier pairing</div><div class="floatLeft">></div>
+			<div id="menu2_sub3" class="setupProgress floatLeft">3. Validate articulations</div><div class="floatLeft">></div>
+			<div id="menu2_sub4" class="setupProgress floatLeft">4. Split directional  tiers</div><div class="floatLeft">></div>
+			<div id="menu2_sub5" class="setupProgress floatLeft">5. Mark identical funcs</div>
+			<button id="menu2_button" class="floatLeft">Next</button>
+		</div>
+	</div>
+</div>
+
+<div id="menu3"></div> <!-- Data overview is shown here -->
+<div id="menu4"></div> <!-- Finegrained data is shown here -->
+
+<script src="js.js"></script>
+</body></html>

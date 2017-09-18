@@ -1,0 +1,7 @@
+Begin Time - ss.msec	End Time - ss.msec	head up/down	ear shake	nose inflate/deflate	head up/down functions m	ear shake function	nose inflate/deflate functions
+01	04	up	shake	inflate	emphasis	emphasis	emphasis
+09	11	up	shake	inflate	emphasis	emphasis	emphasis
+12	13	up	shake	inflate	emphasis	acknowledge	emphasis
+14	17	up	shake		emphasis	emphasis
+17	19	up	shake		BigPanic	MinorPanic+acknowledge
+

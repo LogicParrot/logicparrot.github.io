@@ -1,0 +1,29 @@
+<!doctype html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"><title>Random Letter</title><style>
+a {color: inherit;text-decoration: inherit;}
+</style></head><body onload="init()">
+<div> <a href="/miles/" style="font-size: 2em;">&larr;</a></div>
+
+<div style="text-align: center;">
+	
+	<div style="display: inline-block;";>
+		<div id="letter" style="font-size: 40vmin;">&#x263A;</div>
+		<button id="button" style="font-size: 10vmin;">Click me!</button>
+	</div>
+	<img src="../common/logo.png" style="width: 100vmin;"/>
+</div>
+
+	
+
+
+<script>
+function init()
+{
+	document.getElementById("button").onclick = function()
+	{
+		var rnd = (Math.round(Math.random() * 25)); // 0 to 25 
+		var letter = String.fromCharCode(65 + rnd);   // A to Z
+		document.getElementById("letter").innerHTML = letter;
+	}
+}
+</script>
+</body></head>

@@ -1,0 +1,30 @@
+<!DOCTYPE html><html>
+<head>
+	<link rel="stylesheet" type="text/css" href="s.css"/>
+	<meta charset="utf-8"/>
+</head>
+
+<body onload="init()">
+	<button id="goBack" onclick="location.reload()" style="position: absolute; left: 0; top: 0; visibility: hidden;">Back</button>
+	<div id="flexParent">
+		<div class="flexChild">
+			<img id="logo" src="../common/logoS.png"/>
+			<canvas id="renderArea" style="display: none;"></canvas>		<!-- Either analog clock or wheel falls here -->
+			<div id="digitalClock"></div>
+			<div id="date"></div>
+			<div id="menu">
+				<div>Choose Game</div>
+				<button class="bigButton" id="gameClock">Clock</button>
+				<button class="bigButton" id="gameClockFives">ClockFives</button>
+				<button class="bigButton" id="gameDate">Date</button>
+				<button class="bigButton" id="gameWheel18">Wheel 18</button>
+				<button class="bigButton" id="gameWheel6">Wheel 6</button>
+				<button class="bigButton" id="gameWheel45">Wheel 45</button>
+				<div onclick="alert('Enter or Mouse Click - Action key\nR - Restart\nF11 - Fullscreen toggle\n\n');" class="tiny"><a href="#">Help</a></div>
+				<div style="color: white;" class="tiny"><i>Last update: 19/12/2016<br/>Programmed by Safwat</i></div>
+			</div>
+		</div>
+	</div> 
+<script src="s.js"></script>
+</body>
+</html>

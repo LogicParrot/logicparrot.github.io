@@ -1,0 +1,46 @@
+html
+{
+	height: 100%;
+}
+body
+{
+	padding: 0px;
+	margin: 0px;
+	height: 100%;
+}
+
+#flexParent
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: black;
+	height: 100%;
+	margin: opx;
+}
+
+.flexChild
+{
+	font-size: 16vmin;
+	color: white;
+	text-align: center;
+}
+
+.bigButton
+{
+	font-size: 5vmin;
+	padding: 5vmin;
+}
+
+.tiny
+{
+	font-size: 4vmin;
+}
+.smallerText
+{
+	font-size: 13vmin !important;
+}
+#logo
+{
+	width: 35vmin;
+}

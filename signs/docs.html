@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>body{margin:1em auto;max-width:40em;padding:0 .62em;font:1.2em/1.62em sans-serif;}h1,h2,h3{line-height:1.2em;}</style>
+<title>Safwat's Alignment Analyzer</title>
+</head><body>
+
+<h1>Documentation</h1>
+<a href="/signs/">Go back</a>
+<hr/>
+
+<nav><ul>
+<li><a href="#intro">Intro</a></li>
+<li><a href="#general">General</a></li>
+<li><a href="#tiers-timelines">Tiers and Timelines</a></li>
+<li><a href="#movements">Movements</a></li>
+<li><a href="#tier-split">Tier Splitting</a></li>
+<li><a href="#alignments">Alignments</a></li>
+</ul></nav> 
+
+<h1 id="intro">Intro</h1>
+<p>
+This program analyzes specifically formatted ELAN output files. TODO explain more.
+</p>
+
+<h1 id="general">General</h1>
+<ul>
+<li>The program is case insensitive.</li>
+<li>The program ignores spaces at the beginnings and ends of sentences. e.g. "hello " and "hello" are considered the same.</li>
+<li>The program expects ELAN-style text file exports to be its input. See the sample input at the homepage.</li>
+<li>The program was only tested with English (ASCII) characters, but it might work with others as well.</li>
+<li>The program is generally verbose. It explains what is being done in each step and it
+never discards data or skips errors without notifying the user.</li>
+</ul>
+
+<h1 id="tiers-timelines">Tiers and Timelines</h1>
+<p>A tier is made up of two timelines. One of them is the movement timeline, and the other is the function timeline.</p>
+<ul>
+<li>The movement timeline can be named anything, but shouldn't have the word "function".</li>
+<li>The character "/" has a special meaning (split). See below.</li>
+<li>The strings "decided -" or "decided-" are ignored and treated as nonexistent in both timeline names.</li>
+<li>
+	the function timeline should have the same name as its corresponding movement timeline,
+	with "function{anything}" appended,where {anything} can be anything, including letters or words.
+	<h2>Examples of correct pairs:</h2>
+	<ul>
+		<li>Head up, Head up function</li>
+		<li>Head left/right, head left/right functions M</li>
+	</ul>
+	<h2>Examples of imperfect pairs that will halt the program and print errors:</h2>
+	<ul>
+		<li>head nod, head nods functions m</li>
+		<li>head tilt left/right, head tilt functions m</li>
+		<li>hn left/right, head nod function</li>
+	</ul>
+</li>
+</ul>
+
+<h1 id="movements">Movements</h1>
+<p>Each tier has movements. A movement is made up of:
+<ul>
+	<li>movement text, begin time, and end time in the movement timeline</li>
+	<li>function text, begin time, and end time in the function timeline</li>
+</ul>
+<p>Begin and end times MUST match perfectly in the two timelines.
+Movements with missing text or misaligned times are discarded.</p>
+
+<ul>
+<li>If "movment text" or "function text" says "IGNORE" or "NF", the movement is ignored.</li>
+
+<li>In "function text", the texts "{anything} x" and "{anything}" are considered identical.
+   (the character "x" is used to signify strong movements, and the program doesn't care about those)</li>
+
+<li>If "function text" is "{function1} + {function2}", the program assumes the given movement has two functions.
+   This can also be done with 3 or more functions.</li>
+
+<li>The "/" character works just like the "+" character. e.g. "{function1} / {function2}"
+   *This remark is about function text, not to be confused with "/" in tier names (see below).</li>
+</ul>
+
+<h1 id="tier-split">Tier Splitting</h1>
+<p>If a tier's movement timeline is named "{anything} {dir1}/{dir2}",
+then the tier will be split into "{anything} {dir1}" and "{anything} {dir2}".
+The movements are divided among the two new tiers based on each movement's "movement text",
+The movement text MUST either be "{dir1}" or "{dir2}", otherwise the movement is discarded.</p>
+
+<h1 id="alignments">Alignments</h1>
+<ul>
+<li>Two movements are considered "aligned" when either of them's time period is covered 80% by the other's.</li>
+<li>An "alignment group" is a collection of aligned movements involving 2 or more specific tiers. Any two movements
+within an alignment group are "aligned".</li>
+<li>A "rank" of an alignment group is the number of involved tiers in that group.</li>
+</ul>
+
+<i>Last documentation update: 04/12/2016</i>
+
+</body></html>

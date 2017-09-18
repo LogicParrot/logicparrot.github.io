@@ -1,0 +1,149 @@
+body {
+	padding: 0.5em;
+	margin: 0px;
+}
+
+
+/** Menu 1*/
+#menu1 {
+	background-color: yellow; 
+}
+
+#menu1_message
+{
+	display: inline-block;
+}
+
+.menu1_full
+{
+	padding: 3em;
+	font-size: 150%;
+	max-width: 50%;
+}
+
+.menu1_mini
+{
+	padding: 0.2em;
+	margin: 0px;
+	max-width: 30%;
+}
+
+/** Menu2 */
+
+.grayMenu
+{
+	background-color: #EEEEEE;
+	display: inline-block;
+}
+
+#menu2_footer
+{
+	vertical-align: middle;
+}
+
+.setupProgress
+{
+	padding: 0.5em;
+	margin: 0.2em;
+	background-color: yellow;
+}
+
+.setupProgress_current
+{
+	background-color: green;
+}
+
+
+/** */
+
+.floatParent
+{
+	overflow: hidden;
+}
+
+.floatLeft
+{
+	float: left;
+}
+
+/** General */
+
+.miniTitle
+{
+	font-weight: bold;
+	font-size: 150%;
+	margin: 0.4em;
+}
+
+.bigTitle
+{
+	font-weight: bold;
+	font-size: 200%;
+}
+
+.hidden
+{
+	opacity: 0;
+}
+
+.center
+{
+	text-align: center;
+}
+
+.borderedTable {
+    border-collapse: collapse;
+}
+
+.borderedTable td  {
+	border: 1px solid black;
+	padding: 0.2em;
+}
+
+div {
+	padding: 0.4em;
+}
+/** Animate */
+.selectableListItem:hover , .alignmentGroup:hover
+{
+	background-color: yellow;
+}
+
+.selectableListItem_selected
+{
+	background-color: green !important;
+}
+
+.selectableListItem_ignored
+{
+	background-color: red !important;
+}
+
+
+/* DEBUG */
+
+.yellow
+{
+	background-color: yellow;
+}
+
+.green
+{
+	background-color: green;
+}
+
+/* Findgrained view, function matches */
+.functionMatch_full
+{
+	background-color: #C0FAC0;
+}
+
+.functionMatch_partial
+{
+	background-color: #C0DDFA;
+}
+
+.functionMatch_none
+{
+	background-color: #FAC0FA;
+}
