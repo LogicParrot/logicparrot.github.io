@@ -201,18 +201,26 @@ function addStop(stop)
 	}
 	{
 		var osmId = stop.extra.osmId;
-		var osmType = stop.extra.osmType;
 		var p = document.createElement("p");
 		if (osmId !== null)
-			p.innerHTML = '<b>OSM ID</b>: <a href="https://www.openstreetmap.org/' + osmType + '/' + osmId + '">'+osmId+'</a>';
+		{
+			var nodeUrl = stop.extra.osmType + '/' + osmId;
+			var visualHist = href('https://aleung.github.io/osm-visual-history/#/' + nodeUrl, "Visual history");
+			var osmElement = href('https://www.openstreetmap.org/' + nodeUrl, nodeUrl);
+			p.innerHTML = osmElement + '--' + visualHist;
+		}
 		else
-			p.innerHTML = '<b>OSM ID</b>: N/A (I may manually add one)'
+			p.innerHTML = '<b>OSM ID</b>: N/A'
 		popup.appendChild(p);
 	}
 	
 	circle.bindPopup(popup);
 }
 
+function href(url, str)
+{
+	return '<a href="'+url+'">'+str+'</a>';
+}
 function createTableLine(key, gtfsVal, osmVal) 
 {
 	var tr = document.createElement("tr");
