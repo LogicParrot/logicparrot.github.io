@@ -207,7 +207,7 @@ function addStop(stop)
 			var nodeUrl = stop.extra.osmType + '/' + osmId;
 			var visualHist = href('https://aleung.github.io/osm-visual-history/#/' + nodeUrl, "Visual history");
 			var osmElement = href('https://www.openstreetmap.org/' + nodeUrl, nodeUrl);
-			p.innerHTML = osmElement + '--' + visualHist;
+			p.innerHTML = '<b>OSM ID</b>: ' + osmElement + '--' + visualHist;
 		}
 		else
 			p.innerHTML = '<b>OSM ID</b>: N/A'
