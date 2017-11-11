@@ -194,7 +194,7 @@ function addStop(stop)
 		var discussion = stop.extra.discussion;
 		var p = document.createElement("p");
 		if (discussion !== null)
-			p.innerHTML = '<b>Discussion</b>: <a href="https://www.openstreetmap.org/changeset/' + discussion + '">#'+discussion+'</a>';
+			p.innerHTML = '<b>Discussion</b>: ' + href('https://www.openstreetmap.org/changeset/' + discussion, '#' + discussion);
 		else
 			p.innerHTML = '<b>Discussion</b>: N/A'
 		popup.appendChild(p);
@@ -219,7 +219,7 @@ function addStop(stop)
 
 function href(url, str)
 {
-	return '<a href="'+url+'">'+str+'</a>';
+	return '<a href="'+url+'" target="_blank">'+str+'</a>';
 }
 function createTableLine(key, gtfsVal, osmVal) 
 {
