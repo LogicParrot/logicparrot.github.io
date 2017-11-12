@@ -223,7 +223,8 @@ function createTableLine(key, gtfsVal, osmVal)
 	
 	if(gtfsVal !== osmVal)
 	{
-		if ((gtfsVal !== "") || (key == "name:en")) // don't color osm-only tags yellow (e.g. wheelchair)
+		if ((key == "name:en") || (key == "name:ar") || (key == "name:he") ||
+		 (key == "description") || (key == "lat")  || (key == "lon")) // don't color osm-only tags yellow (e.g. wheelchair)
 			tr.className = "yellow";
 	}
 	return tr;
