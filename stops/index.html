@@ -23,6 +23,7 @@
 <script>
 	// UGLY code written as fast as possible. Do not expect elegance.
 var map;
+var rdius = 13;
 function init()
 {
 	map = L.map('mapid').setView([32, 35], 6);
@@ -93,7 +94,7 @@ function addStop(stop)
 				c = "cyan";
 				f = "#F00";
 			}
-			circle = L.circleMarker([stop.osm.lat, stop.osm.lon], {color: c, fillColor: f, fillOpacity:0.5, radius:5});
+			circle = L.circleMarker([stop.osm.lat, stop.osm.lon], {color: c, fillColor: f, fillOpacity:0.5, radius:rdius});
 			var polyline = L.polyline([[stop.osm.lat,stop.osm.lon],[stop.gtfs.lat,stop.gtfs.lon]], {color: 'red', fillOpacity:1}).addTo(map);
 			circle.addTo(map);
 			polyline.addTo(map);
@@ -101,20 +102,20 @@ function addStop(stop)
 		else if (stop.gtfs !== null)
 		{
 			// stop with modified tags
-			circle = L.circleMarker([stop.osm.lat, stop.osm.lon], {color: 'yellow', fillColor: '#FF0', fillOpacity:0.5, radius:5});
+			circle = L.circleMarker([stop.osm.lat, stop.osm.lon], {color: 'yellow', fillColor: '#FF0', fillOpacity:0.5, radius:rdius});
 			circle.addTo(map);
 		}
 		else
 		{
 			// stop in OSM but not in GTFS
-			circle = L.circleMarker([stop.osm.lat, stop.osm.lon], {color: 'magenta', fillColor: '#F0F', fillOpacity:0.5, radius:5});
+			circle = L.circleMarker([stop.osm.lat, stop.osm.lon], {color: 'magenta', fillColor: '#F0F', fillOpacity:0.5, radius:rdius});
 			circle.addTo(map);
 		}
 	}
 	else
 	{
 		// deleted stop (only present in GTFS)
-		circle = L.circleMarker([stop.gtfs.lat, stop.gtfs.lon], {color: 'red', fillColor: '#FF', fillOpacity:0.5, radius:5});
+		circle = L.circleMarker([stop.gtfs.lat, stop.gtfs.lon], {color: 'red', fillColor: '#FF', fillOpacity:0.5, radius:rdius});
 		circle.addTo(map);
 	}
 	
