@@ -22,10 +22,10 @@
 <div style="margin-top: 2em; display: inline-block;">... You can also use this <a href="https://en.wikipedia.org/wiki/Bookmarklet">bookmarklet</a>:
 
 <div style="background-color: #DDD; font-family: monospace; text-align: left;">
-javascript:(function()%20{window.location=window.location.toString().replace(/.*\/changeset\/([0-9]+).*/,'https\:\/\/overpass\-api\.de\/achavi\/?changeset\=$1');})()
+javascript:(function(){id=location.href.match(/www\.openstreetmap\.org\/changeset\/(\d+)/);if(id!=null){window.open('https://overpass-api.de/achavi/?changeset='+id[1]);}else{alert('This%20is%20not%20a%20valid%20OSM%20changeset%20page.')}})()
 </div>
 
-Drag and drop <a href="javascript:(function()%20{window.location=window.location.toString().replace(/.*\/changeset\/([0-9]+).*/,'https\:\/\/overpass\-api\.de\/achavi\/?changeset\=$1');})() ">this link</a> to your bookmark bar to install it. Some browsers also allow right-clicking the link, then clicking "bookmark this link".
+Drag and drop <a href="javascript:(function(){id=location.href.match(/www\.openstreetmap\.org\/changeset\/(\d+)/);if(id!=null){window.open('https://overpass-api.de/achavi/?changeset='+id[1]);}else{alert('This%20is%20not%20a%20valid%20OSM%20changeset%20page.')}})()">this link</a> to your bookmark bar to install it. Some browsers also allow right-clicking the link, then clicking "bookmark this link".
 
 </div>
 
