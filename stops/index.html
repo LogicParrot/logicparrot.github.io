@@ -16,7 +16,10 @@
 <button id="openWithOsm">Open with OSM</button>
 <button id="openWithAchavi">Open with Achavi</button>
 <a href="https://wiki.openstreetmap.org/wiki/User:SafwatHalaby/scripts/gtfs">More info here</a>
-<p>Red - Deleted | Cyan+Red - 12m+ | Cyan - 5-12m | Green - 0-5m | Yellow - Not moved but tags changed.</p>
+<p>Red - Deleted from OSM, present in GTFS<br>
+Pink - Has ref, present on map, but not present in GTFS<br>
+| Cyan+darkBlue - 12m+ | Cyan - 5-12m | Cyan+Green - 0-5m | Yellow - Not moved but tags changed.
+</p>
 <div id="mapid"></div>
 
 
@@ -81,7 +84,7 @@ function addStop(stop)
 			// moved stop (could be modified tags too)
 			if (dist < 5)
 			{
-				c = "green";
+				c = "cyan";
 				f = "#0F0";
 			}
 			else if (dist < 12)
@@ -92,7 +95,7 @@ function addStop(stop)
 			else
 			{
 				c = "cyan";
-				f = "#F00";
+				f = "#005";
 			}
 			circle = L.circleMarker([stop.osm.lat, stop.osm.lon], {color: c, fillColor: f, fillOpacity:0.5, radius:rdius});
 			var polyline = L.polyline([[stop.osm.lat,stop.osm.lon],[stop.gtfs.lat,stop.gtfs.lon]], {color: 'red', fillOpacity:1}).addTo(map);
