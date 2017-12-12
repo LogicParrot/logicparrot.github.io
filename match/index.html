@@ -1,10 +1,20 @@
-<!doctype html><html><head><meta charset="utf-8"/><title>Copy detector</title><style>
+<!doctype html><html><head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+<title>Copy detector</title>
+<style>
 * {
 	margin: 0;
 }
 
 body {
 	margin: 1vw;
+	font:1em/1.6em sans-serif;
+}
+
+table, tr, td {
+	border: 1px solid black;
+	border-collapse: collapse;
 }
 
 .center {
@@ -17,22 +27,38 @@ body {
 	text-align: left;
 }
 
+h1 {
+	font: 2em sans-serif;
+}
+
 textarea {
 	width: 40vw;
-	height: 50vh;
+	height: 30vh;
 	display: inline-block;
 	text-align: left;
 }
 
 .mono {
-	font-family: monospace;
+	font: 1.4em/1.6em monospace;
+}
+
+.green {
+	background-color: #0F0;
+}
+
+.yellow {
+	background-color: #FF0;
+}
+
+.red {
+	background-color: #F00;
 }
 
 </head></style><body onload="main()">
 <div class="center">
 	<div class="left">
-		<h1>String local match finder</h1>
-		&nbsp;&nbsp;&nbsp;&nbsp;...using the Smith Waterman algorithm
+		<h1>Simple plagiarism detector</h1>
+		&nbsp;&nbsp;&nbsp;&nbsp;...using the Smith Waterman algorithm for finding local string matches. <a href="https://github.com/SafwatHalaby/safwathalaby.github.io/tree/master/match">Source code here</a>
 	</div>
 </div>
 
@@ -40,8 +66,18 @@ textarea {
 	<div class="left">
 		<textarea id="input1"></textarea>
 		<textarea id="input2"></textarea><br/>
-		<button id="buttonMatch">start matching</button><!--
-	--><button id="buttonReset">Reset</button>
+		<button id="buttonMatch">start matching</button>
+		<button id="buttonReset">Reset</button>
+		Threshold score: <input type="text" id="threshold" value="0">
+		<button id="example1">Example 1</button>
+		<button id="example2">Example 2</button>
+		<button id="example3">Example 3</button>
+		<button id="example4">Example 4</button>
+		<div id="functionChooser">
+			Score function:<br>
+			<input type="radio" id="f1" name="rate" value="1"> indel: -2, match: 1, mismatch: -1. <i>Better at example 1</i><br>
+			<input type="radio" id="f2" name="rate" value="2"> indel: -2, match: 1, mismatch (E/A, G/J, V/W): -1, mismatch (=rest of the letters): -1000. <i>Better at example 2</i>
+		</div>
 	</div>
 </div>
 
@@ -50,7 +86,7 @@ textarea {
 	<div id="textSmall" class="mono"></div>
 </div>
 
-<div id="debugArray"></div>
+<div id="tableArea"></div>
 
 
 <script src="j.js"></script>

@@ -1,6 +1,8 @@
-// A match is found only if the best score is higher than the threshold
-var THRESHOLD = 0;
-var LEFT = "L", TOP = "T", TOP_LEFT = "LT"; // enums for cell arrows
+/** globals **/
+var THRESHOLD = 0; // A match is found only if the best score is higher than the threshold
+var SCORE_FUNCTION = 1; // whether to use score function 1 or 2
+var LEFT = "L", TOP = "T", TOP_LEFT = "LT"; // string representations for cell arrows
+
 function main()
 {
 	var compare = new Compare();
@@ -23,6 +25,29 @@ function Cell(score, arrow)
 		this.score = score;
 		this.arrow = arrow;
 	}
+	
+	var arrowString;
+	
+	this.toStr = function()
+	{
+		if (this.arrow !== null)
+		{
+			switch (this.arrow)
+			{
+				case LEFT:
+					arrowString = "<";
+				break;
+				case TOP:
+					arrowString = "^";
+				break;
+				case TOP_LEFT:
+					arrowString = "*";
+			}
+		}		
+		else arrowString = "";
+		
+		return arrowString + this.score;
+	}
 }
 
 /** compare class ***/
@@ -30,25 +55,30 @@ function Compare()
 {
 	// the dynamic programming matrix
 	var arr;
+	var w;
+	var h;
 	
 	// Compares two strings and finds their best local match, prints the local match to the gui, returns nothing
 	function matchAndPrintToGui(str1, str2, gui)
 	{
 		var match = localMatch(str1, str2);
-		console.log(match);
-		gui.showMessage("Best match: ", "<b>Left text....</b>" + match.str1 + "<br><b>right text...</b>" + match.str2 +
+		
+		// colorize the matches (using html and css)
+		colors = colorize(match.str1, match.str2);
+		
+		gui.showMessage("Best match: ", "<b>Left text....</b>" + colors.str1 + "<br><b>right text...</b>" + colors.str2 +
 		"<br/>Score: " + match.score);
-		gui.drawArray(arr); // Draw the matrix
+		gui.drawArray(arr, w, h, str1, str2); // Draw the matrix
 	}
 	
 	// Compares two strings and returns their best local match
 	function localMatch(str1, str2)
 	{
-		str1 = "|" + str1;
-		str2 = "|" + str2; // filler character to align the length with the matrix length
+		str1 = "|" + str1.toLowerCase().trim();
+		str2 = "|" + str2.toLowerCase().trim(); // filler character to align the length with the matrix length
 		
-		var w = str1.length; // width of the dynamic programming array
-		var h = str2.length; // height of the dynamic programming array
+		w = str1.length; // width of the dynamic programming array
+		h = str2.length; // height of the dynamic programming array
 		arr = create2dArray(w, h); // This matrix contains value (match score), and arrow(parent)
 		
 		// add zeros first col and first row
@@ -83,10 +113,8 @@ function Compare()
 	function initializeArray(arr, w, h)
 	{
 		// zero first row
-		console.log(w);
 		for (var x = 0; x < w; ++x)
 		{
-			console.log(x);
 			arr[x][0] = new Cell(0, null);
 		}
 		
@@ -99,24 +127,40 @@ function Compare()
 	
 	function fillArray(arr, w, h, str1, str2)
 	{
+		var scoreFunction;
+		if (SCORE_FUNCTION == 1)
+		{
+			scoreFunction = scoreFunction1;
+		}
+		else
+		{
+			scoreFunction = scoreFunction2;
+		}
 		for (var y = 1; y < h; ++y)
 		{
 			for (var x = 1; x < w; ++x)
 			{
 				letter1 = str1[x];
 				letter2 = str2[y];
-				
 				// Search for the best score. Temporary candidate cell values. We choose one of them.
-				topLeft = new Cell(arr[x - 1][y - 1].score + scoreFunction(letter1, letter2), TOP_LEFT);
-				top = new Cell(arr[x][y - 1].score + scoreFunction("-", letter2), TOP); // - is an indel
-				left = new Cell(arr[x - 1][y].score + scoreFunction("-", letter1), LEFT);
+				cellTopLeft = new Cell(arr[x - 1][y - 1].score + scoreFunction(letter1, letter2), TOP_LEFT);
+				cellTop = new Cell(arr[x][y - 1].score + scoreFunction("-", letter2), TOP); // - is an indel
+				cellLeft = new Cell(arr[x - 1][y].score + scoreFunction("-", letter1), LEFT);
 				startNew = new Cell(0, null); // for local matching
 				
+				if ((x == 7) && (y == 7))
+				{
+					console.log(cellTopLeft);
+					console.log(cellTop);
+					console.log(cellLeft);
+					console.log(startNew);
+				}
 				// find the max among the 4 candidates and fill this cell
-				var candidates = [startNew, topLeft, top, left];
+				var candidates = [startNew, cellTopLeft, cellTop, cellLeft];
 				var max = candidates[0];
 				for (var i = 1; i < 4; ++i)
 				{
+					if ((x == 7) && (y == 7)) console.log(str1[x], str2[y], candidates[i]);
 					if (candidates[i].score > max.score)
 					{
 						max=candidates[i];
@@ -178,7 +222,7 @@ function Compare()
 				
 				case TOP_LEFT:
 				str1match.push(str1[x]);
-				str2match.push(str1[x]);
+				str2match.push(str2[y]);
 				x -= 1;
 				y -= 1;
 				cell = arr[x][y];
@@ -189,12 +233,30 @@ function Compare()
 		
 		return {str1: str1match, str2: str2match};
 	}
-	function scoreFunction(str1, str2)
+	
+	function scoreFunction1(str1, str2)
 	{
-		if (str1 == "-") return 0;
+		if (str1 == "-") return -2;
 		else if (str1 == str2) return 1;
 		else return -1;
 	}
+	
+	function scoreFunction2(str1, str2)
+	{
+		function lettersEqual(letter1, letter2)
+		{
+			return ((str1 == letter1) && (str2 == letter2)) || ((str2 == letter1) && (str1 == letter2))
+		}
+				
+		if (str1 == "-") return -2;
+		else if (str1 == str2) return 1;
+		else if (lettersEqual("e","a")) return 0;
+		else if (lettersEqual("g","j")) return 0;
+		else if (lettersEqual("v","w")) return 0;
+		else return -1000;
+	}
+	
+	
 	
 	this.matchAndPrintToGui = matchAndPrintToGui; // set function to public
 }
@@ -209,36 +271,74 @@ function Gui(compare_)
 	var textSmall = el("textSmall");
 	var buttonMatch = el("buttonMatch");
 	var buttonReset = el("buttonReset");
+	var textThreshold = el("threshold");
+	var radioBox1 = el("f1");
+	var radioBox2 = el("f2");
+	var tableArea = el("tableArea");
+	var example1 = el("example1");
+	var example2 = el("example2");
+	var example3 = el("example3");
+	var example4 = el("example4");
 	
 	// private memeber variables - other
 	var compare = compare_;      // the compare object received in constructor
 	var gui = this;
 	var regex = /[a-zA-Z0-9 ]+/; // regular expression to check for only English or numbers in input
 
-	// public methods
+	// set the public methods
 	this.showMessage = showMessage;
 	this.showError = showError;
+	this.drawArray = drawArray;
 	
 	// initialize the gui object
 	reset();
 	buttonMatch.onclick = onMatchClick;
 	buttonReset.onclick = onResetClick;
 	
-	/** public functions */
+	example1.onclick = function()
+	{
+		input1.value = "john and I saw the amazing quick brown fox";
+		input2.value = "my neighbor saw the aamazing slow brown fox";
+	}
+	
+	example2.onclick = function()
+	{
+		input1.value = "hello world how are you";
+		input2.value = "hallo world how are you";
+	}
+	
+	example3.onclick = function()
+	{
+		input1.value = "William Beach Thomas (1868–1957) was a British author and journalist who worked as a war correspondent and wrote about nature and country life. After a short-lived career as a schoolmaster, he began to write articles for newspapers and periodicals, as well as books. During the early part of the First World War he defied military authorities by reporting news stories from the Western Front for his employer, the Daily Mail. He was briefly imprisoned before being granted official accreditation as a war correspondent. His book With the British on the Somme (1917) portrayed the English soldier in a ";
+		input2.value = "In very favourable light. Both France and Britain rewarded him with knighthoods after the war, but Baach Thomas regretted some of his wartime output. His primary interest as an adult was in rural matters. He was an advocate for the creation of national parks in England and Wales, and mourned the decline of traditional village society. He wrote extensively, particularly for The Observer newspaper and periodicels and The Spectator, a conservative magazine. His book The English Landscape (1938) includes selections from";
+	}
+	
+	example4.onclick = function()
+	{
+		input1.value = "the man";
+		input2.value = "the tree";
+	}
+	
+	/** Class methods */
 	
 	// Clear inputs and result text
 	function reset()
 	{
-		input1.value = "hello my dear children";
-		input2.value = "elementary dear children";
-		textSmall.innerHTML = "Enter two strings. We'll find out if a student has copied their homework.";
-		textBig.innerHTML = ""; // clear big text
+		input1.value = "";
+		input2.value = "";
+		textSmall.innerHTML = "We'll find out if a student has copied their homework.";
+		textBig.innerHTML = 'Enter two strings, then click "start matching"'; // clear big text
+		radioBox2.checked = false;
+		radioBox1.checked = true;
+		tableArea.innerHTML = "";
+		threshold.value = "0";
 	}
 	
 	// Show an error
 	function showError(errorString)
 	{
 		textBig.innerHTML = errorString;
+		textSmall.innerHTML = "";
 	}
 	
 	// Show result
@@ -253,6 +353,17 @@ function Gui(compare_)
 	{
 		var str1 = input1.value;
 		var str2 = input2.value;
+		threshold = textThreshold.value;
+		if (isNaN(threshold) || (threshold < 0))
+		{
+			showError("Threshold must be a non negative number");
+			return;
+		}
+		THRESHOLD = Number(threshold); // global variable
+		var chosenFunction;
+		if (radioBox1.checked) SCORE_FUNCTION = 1;
+		else SCORE_FUNCTION = 2;
+			
 		
 		// check if inputs are not empty
 		if ((str1.replace(/\s/g, "") == "") || (str2.replace(/\s/g, "") == ""))
@@ -284,6 +395,62 @@ function Gui(compare_)
 		reset();
 	}
 	
+	function drawArray(arr, w, h, str1, str2)
+	{
+		if ((w > 30) || (h > 30))
+		{
+			tableArea.innerHTML = "Text too big for printing the array. size is: " + w + "x" + h + ". max allowed for printing: 30x30";
+			return;
+		}
+		var c = function(str){return document.createElement(str);};
+		var table = c("table");
+		var row;
+		
+		function newRow()
+		{
+			row = c("tr");
+			table.appendChild(row);
+		}
+		
+		function addCell(str)
+		{
+			var cell = c("td");
+			cell.innerHTML = str;
+			row.appendChild(cell);
+		}
+
+		// row 1
+		newRow();
+		addCell(" ");
+		addCell("-");
+		for (var i = 0; i < str1.length; ++i)
+		{
+			addCell(str1[i]);
+		}
+		
+		// row 2
+		newRow();
+		addCell("-");
+		for (var x = 0; x < w; ++x)
+		{
+			addCell(arr[x][0].toStr());
+		}
+		
+		// rest of the rows
+		for (var y = 1; y < h; ++y)
+		{
+			newRow();
+			addCell(str2[y - 1]);
+			for (var x = 0; x < w; ++x)
+			{
+				addCell(arr[x][y].toStr());
+			}
+		}
+		
+		tableArea.innerHTML = "";
+		tableArea.appendChild(table);
+	}
+	
 }
 
 /*** Other functions ***/
@@ -302,5 +469,45 @@ function create2dArray(width, height) {
 		arr[i] = [];
 	}
 	return arr;
+}
+
+//colorizes (using html) str1 and str2. indel is red, mismatch is yellow, match is green
+
+function colorizeLetter(letter, colorClass)
+{
+	return '<label class="'+colorClass+'">' + letter + "</label>";
+}
+
+function colorize(str1, str2)
+{
+	var result1 = "", result2 = "";
+	var len = str1.length;
+	if (len > 100)
+	{
+		// don't colorize if too long
+		return {str1: str1, str2: str2};
+	}
+	
+	for (i = 0; i < len; ++i)
+	{
+			var letter1 = str1[i];
+			var letter2 = str2[i];
+			if (letter1 == letter2)
+			{
+				result1 += colorizeLetter(letter1, "green");
+				result2 += colorizeLetter(letter2, "green");
+			}
+			else if ((letter1 == "-") || (letter2 == "-"))
+			{
+				result1 += colorizeLetter(letter1, "red");
+				result2 += colorizeLetter(letter2, "red");
+			}
+			else
+			{
+				result1 += colorizeLetter(letter1, "yellow");
+				result2 += colorizeLetter(letter2, "yellow");
+			}
+	}
+	return {str1: result1, str2: result2};
 }
 
