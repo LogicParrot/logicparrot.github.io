@@ -252,7 +252,7 @@ function Compare()
 	
 	function scoreFunction1(str1, str2)
 	{
-		if (str1 == "-") return -2;
+		if (str1 == "-") return -2; // indel is always str1 in function call
 		else if (str1 == str2) return 1;
 		else return -1;
 	}
@@ -264,7 +264,8 @@ function Compare()
 			return ((str1 == letter1) && (str2 == letter2)) || ((str2 == letter1) && (str1 == letter2))
 		}
 				
-		if (str1 == "-") return -2;
+		if ((str1 == "-") && (str2 == "e")) return -1;
+		else if ((str1 == "-") && (str2 == "o")) return -1;
 		else if (str1 == str2) return 1;
 		else if (lettersEqual("e","a")) return 0;
 		else if (lettersEqual("g","j")) return 0;
@@ -319,7 +320,7 @@ function Gui(compare_)
 	
 	example2.onclick = function()
 	{
-		input1.value = "hello world how are you";
+		input1.value = "hello weorld how are you";
 		input2.value = "hallo world how are you";
 	}
 	
