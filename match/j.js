@@ -369,6 +369,14 @@ function Gui(compare_)
 	{
 		var str1 = input1.value;
 		var str2 = input2.value;
+		
+		if ((str1.length > 700) || (str2.length > 700))
+		{
+			showMessage("Text too long. Please enter 700 characters or less.",
+				"Left text length: " + str1.length + ", Right text length: " + str2.length);
+			return;
+		}
+		
 		threshold = textThreshold.value;
 		if (isNaN(threshold) || (threshold < 0))
 		{
