@@ -1,3 +1,19 @@
+/**
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    
+    Written by Safwat Halaby, 2017
+**/
 /** globals **/
 var THRESHOLD = 0; // A match is found only if the best score is higher than the threshold
 var SCORE_FUNCTION = 1; // whether to use score function 1 or 2
@@ -494,8 +510,16 @@ function colorize(str1, str2)
 			var letter2 = str2[i];
 			if (letter1 == letter2)
 			{
-				result1 += colorizeLetter(letter1, "green");
-				result2 += colorizeLetter(letter2, "green");
+				if (letter1 != " ")
+				{
+					result1 += colorizeLetter(letter1, "green");
+					result2 += colorizeLetter(letter2, "green");
+				}
+				else
+				{
+					result1 += colorizeLetter("&nbsp;", "green");
+					result2 += colorizeLetter("&nbsp;", "green");
+				}
 			}
 			else if ((letter1 == "-") || (letter2 == "-"))
 			{
