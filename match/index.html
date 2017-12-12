@@ -1,0 +1,57 @@
+<!doctype html><html><head><meta charset="utf-8"/><title>Copy detector</title><style>
+* {
+	margin: 0;
+}
+
+body {
+	margin: 1vw;
+}
+
+.center {
+	margin: 1vw;
+	text-align: center;
+}
+
+.left {
+	display: inline-block;
+	text-align: left;
+}
+
+textarea {
+	width: 40vw;
+	height: 50vh;
+	display: inline-block;
+	text-align: left;
+}
+
+.mono {
+	font-family: monospace;
+}
+
+</head></style><body onload="main()">
+<div class="center">
+	<div class="left">
+		<h1>String local match finder</h1>
+		&nbsp;&nbsp;&nbsp;&nbsp;...using the Smith Waterman algorithm
+	</div>
+</div>
+
+<div class="center">
+	<div class="left">
+		<textarea id="input1"></textarea>
+		<textarea id="input2"></textarea><br/>
+		<button id="buttonMatch">start matching</button><!--
+	--><button id="buttonReset">Reset</button>
+	</div>
+</div>
+
+<div class="center">
+	<h1 id="textBig"></h1>
+	<div id="textSmall" class="mono"></div>
+</div>
+
+<div id="debugArray"></div>
+
+
+<script src="j.js"></script>
+</body></html>
