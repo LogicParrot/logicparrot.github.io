@@ -55,8 +55,9 @@ fi
 if [ ! -f src647.tar.gz ]; then
 	echo "Downloading spin source code from http://spinroot.com/spin/Src/src647.tar.gz..."
 	err=0
-	wget http://spinroot.com/spin/Src/src647.tar.gz 2> /dev/null > /dev/null || err=1
+	wget http://sspinroot.com/spin/Src/src647.tar.gz 2> /dev/null > /dev/null || err=1
 	if [ $err = 1 ]; then
+		err=0
 		echo "Couldn't download. Trying to download from mirror: http://www.safwat.xyz/spin/src647.tar.gz"
 		wget http://www.safwat.xyz/spin/src647.tar.gz 2> /dev/null > /dev/null || err=1
 	fi
@@ -69,10 +70,11 @@ fi
 if [ ! -f ispin.tcl ]; then
 	echo "Downloading spin tcl GUI (iSpin) from http://spinroot.com/spin/Src/ispin.tcl..."
 	err=0
-	wget http://spinroot.com/spin/Src/ispin.tcl 2> /dev/null > /dev/null || err=1
+	wget http://sspinroot.com/spin/Src/ispin.tcl 2> /dev/null > /dev/null || err=1
 	if [ $err = 1 ]; then
+		err=0
 		echo "Couldn't download. Trying to download from mirror: http://www.safwat.xyz/spin/ispin.tcl"
-		wget http://www.safwat.xyz/spin/src647.tar.gz 2> /dev/null > /dev/null || err=1
+		wget http://www.safwat.xyz/spin/ispin.tcl 2> /dev/null > /dev/null || err=1
 	fi
 	if [ $err = 1 ]; then
 		downloadFailed
