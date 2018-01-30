@@ -16,9 +16,11 @@ read dummy
 
 missingPrograms()
 {
-	echo "$1 is missing. Please install dependencies and then try again. Use:"
-	echo "sudo apt-get install byacc flex gcc make wget perl"
-	exit 1
+	echo "$1 is missing. I need to install all dependencies first. Auto-executing this command:"
+	echo ">sudo apt-get install byacc flex gcc make wget perl"
+	echo "(please type your ROOT password if asked):"
+	sudo apt-get install byacc flex gcc make wget perl || error "Failed to install dependencies. Sorry! Try again, or try doing it manually"
+	echo "Dependency installation finished! "
 }
 
 downloadFailed()
