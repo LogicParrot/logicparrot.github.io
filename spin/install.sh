@@ -21,7 +21,7 @@ read dummy
 missingPrograms()
 {
 	echo "$1 is missing. I need to install all dependencies first. Auto-executing this command:"
-	echo ">sudo apt-get install byacc gcc make wget perl"
+	echo ">sudo apt-get install bison gcc make wget perl"
 	echo "(please type your ROOT password if asked. Also, Internet connection is needed):"
 	sudo apt-get install byacc flex gcc make wget perl || error "Failed to install dependencies. Sorry! Try again, or try running above command manually"
 	echo "Dependency installation finished!"
