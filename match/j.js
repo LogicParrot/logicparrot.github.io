@@ -25,10 +25,6 @@ function main()
 	var gui = new Gui(compare); // gui will wait for onResetClick or onMatchClick, and will call compare.matchAndPrintToGui
 }
 
-// two problems. type hello, hellxo.
-// problem 1: space cost is set to 0 but it's -	, it's always picking LT
-// problem 2: cutting first letter for some reason.
-
 /*** Cell class ***/
 // A cell's value in the dynamic programming array, has a value and an arrow
 function Cell(score, arrow)
@@ -80,10 +76,9 @@ function Compare()
 		var match = localMatch(str1, str2);
 		
 		// colorize the matches (using html and css)
-		colors = colorize(match.str1, match.str2);
+		colorizedMatch = colorize(match.str1, match.str2);
 		
-		gui.showMessage("Best match: ", "<b>Left text....</b>" + colors.str1 + "<br><b>right text...</b>" + colors.str2 +
-		"<br/>Score: " + match.score);
+		gui.showMessage("Best match: ", colorizedMatch + "<br/>Score: " + match.score);
 		gui.drawArray(arr, w, h, str1, str2); // Draw the matrix
 	}
 	
@@ -148,35 +143,51 @@ function Compare()
 		{
 			scoreFunction = scoreFunction1;
 		}
-		else
+		else if (SCORE_FUNCTION == 2)
 		{
 			scoreFunction = scoreFunction2;
 		}
+		else
+		{
+			scoreFunction = scoreFunction3;
+		}
+		
 		for (var y = 1; y < h; ++y)
 		{
 			for (var x = 1; x < w; ++x)
 			{
-				letter1 = str1[x];
-				letter2 = str2[y];
-				// Search for the best score. Temporary candidate cell values. We choose one of them.
-				cellTopLeft = new Cell(arr[x - 1][y - 1].score + scoreFunction(letter1, letter2), TOP_LEFT);
-				cellTop = new Cell(arr[x][y - 1].score + scoreFunction("-", letter2), TOP); // - is an indel
-				cellLeft = new Cell(arr[x - 1][y].score + scoreFunction("-", letter1), LEFT);
-				startNew = new Cell(0, null); // for local matching
-				
-				if ((x == 7) && (y == 7))
+				var cellTopLeft, cellTop, cellLeft, startNew;
+				if (SCORE_FUNCTION != 3)
 				{
-					console.log(cellTopLeft);
-					console.log(cellTop);
-					console.log(cellLeft);
-					console.log(startNew);
+					letter1 = str1[x];
+					letter2 = str2[y];
+					// Search for the best score. Temporary candidate cell values. We choose one of them.
+					cellTopLeft = new Cell(arr[x - 1][y - 1].score + scoreFunction(letter1, letter2), TOP_LEFT);
+					cellTop = new Cell(arr[x][y - 1].score + scoreFunction("-", letter2), TOP); // - is an indel
+					cellLeft = new Cell(arr[x - 1][y].score + scoreFunction("-", letter1), LEFT);
+					startNew = new Cell(0, null); // for local matching
 				}
+				else
+				{
+					if (x > 2)
+					{
+						cellTopLeft = new Cell(arr[x - 1][y - 1].score + scoreFunction3(str1[x - 3], str1[x - 2], str1[x - 1], str1[x], 
+						str2[y - 3], str2[y - 2], str2[y - 1], str2[y]), TOP_LEFT);
+					}
+					else
+					{
+						cellTopLeft = new Cell(-1, null);
+					}
+					cellTop = new Cell(arr[x][y - 1].score, TOP); // - is an indel
+					cellLeft = new Cell(arr[x - 1][y].score, LEFT);
+					startNew = new Cell(0, null); // for local matching
+				}
+				
 				// find the max among the 4 candidates and fill this cell
 				var candidates = [startNew, cellTopLeft, cellTop, cellLeft];
 				var max = candidates[0];
 				for (var i = 1; i < 4; ++i)
 				{
-					if ((x == 7) && (y == 7)) console.log(str1[x], str2[y], candidates[i]);
 					if (candidates[i].score > max.score)
 					{
 						max=candidates[i];
@@ -273,6 +284,11 @@ function Compare()
 		else return -1000;
 	}
 	
+	function scoreFunction3(x1, x2, x3, x4, y1, y2, y3, y4)
+	{
+		if ((x1 == y1) && (x2 == y2) && (x3 == y3) && (x4 == y4)) return 1;
+		return 0;
+	}
 	
 	
 	this.matchAndPrintToGui = matchAndPrintToGui; // set function to public
@@ -291,6 +307,7 @@ function Gui(compare_)
 	var textThreshold = el("threshold");
 	var radioBox1 = el("f1");
 	var radioBox2 = el("f2");
+	var radioBox3 = el("f3");
 	var tableArea = el("tableArea");
 	var example1 = el("example1");
 	var example2 = el("example2");
@@ -345,6 +362,7 @@ function Gui(compare_)
 		input2.value = "";
 		textSmall.innerHTML = "We'll find out if a student has copied their homework.";
 		textBig.innerHTML = 'Enter two strings, then click "start matching"'; // clear big text
+		radioBox3.checked = false;
 		radioBox2.checked = false;
 		radioBox1.checked = true;
 		tableArea.innerHTML = "";
@@ -387,7 +405,8 @@ function Gui(compare_)
 		THRESHOLD = Number(threshold); // global variable
 		var chosenFunction;
 		if (radioBox1.checked) SCORE_FUNCTION = 1;
-		else SCORE_FUNCTION = 2;
+		else if (radioBox2.checked) SCORE_FUNCTION = 2;
+		else SCORE_FUNCTION = 3;
 			
 		
 		// check if inputs are not empty
@@ -505,42 +524,68 @@ function colorizeLetter(letter, colorClass)
 
 function colorize(str1, str2)
 {
-	var result1 = "", result2 = "";
+	var result = "";
+	var line1 = "<b>Left text....</b>";
+	var line2 = "<b>right text...</b>";
 	var len = str1.length;
-	if (len > 100)
-	{
-		// don't colorize if too long
-		return {str1: str1, str2: str2};
-	}
+	var lettersInLine = 0;
 	
 	for (i = 0; i < len; ++i)
 	{
 			var letter1 = str1[i];
 			var letter2 = str2[i];
-			if (letter1 == letter2)
+			if (SCORE_FUNCTION == 3)
 			{
-				if (letter1 != " ")
+				if ((letter1 == letter2) && (letter2 != "-") && (letter1 != "-") && (letter1 != " ") && (letter2 != " "))
 				{
-					result1 += colorizeLetter(letter1, "green");
-					result2 += colorizeLetter(letter2, "green");
+					line1 += colorizeLetter(letter1, "green");
+					line2 += colorizeLetter(letter2, "green");
 				}
 				else
 				{
-					result1 += colorizeLetter("&nbsp;", "green");
-					result2 += colorizeLetter("&nbsp;", "green");
+					line1 += letter1;
+					line2 += letter2;
 				}
-			}
-			else if ((letter1 == "-") || (letter2 == "-"))
-			{
-				result1 += colorizeLetter(letter1, "red");
-				result2 += colorizeLetter(letter2, "red");
 			}
 			else
 			{
-				result1 += colorizeLetter(letter1, "yellow");
-				result2 += colorizeLetter(letter2, "yellow");
+				if (letter1 == letter2)
+				{
+					if (letter1 != " ")
+					{
+						line1 += colorizeLetter(letter1, "green");
+						line2 += colorizeLetter(letter2, "green");
+					}
+					else
+					{
+						line1 += colorizeLetter("&nbsp;", "green");
+						line2 += colorizeLetter("&nbsp;", "green");
+					}
+				}
+				else if ((letter1 == "-") || (letter2 == "-"))
+				{
+					line1 += colorizeLetter(letter1, "red");
+					line2 += colorizeLetter(letter2, "red");
+				}
+				else
+				{
+					line1 += colorizeLetter(letter1, "yellow");
+					line2 += colorizeLetter(letter2, "yellow");
+				}
+			}
+			lettersInLine++;
+			if (lettersInLine > 50)
+			{
+				result += line1 + "<br>" + line2 + "<br><br>";
+				line1 = "<b>Left text....</b>";
+				line2 = "<b>right text...</b>";
+				lettersInLine = 0;
 			}
 	}
-	return {str1: result1, str2: result2};
+	if (lettersInLine > 0)
+	{
+		result += line1 + "<br>" + line2 + "<br>";
+	}
+	return result;
 }
 

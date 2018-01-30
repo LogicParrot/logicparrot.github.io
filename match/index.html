@@ -76,14 +76,17 @@ textarea {
 		<div id="functionChooser">
 			Score function:<br>
 			<input type="radio" id="f1" name="rate" value="1"> indel: -2, match: 1, mismatch: -1. <i>Better at example 1</i><br>
-			<input type="radio" id="f2" name="rate" value="2"> indel (e,o): -1, match: 1, mismatch (e/a, g/j, v/w): 0, mismatch or indel (rest of the letters): -1000. <i>Better at example 2</i>
+			<input type="radio" id="f2" name="rate" value="2"> indel (e,o): -1, match: 1, mismatch (e/a, g/j, v/w): 0, mismatch or indel (rest of the letters): -1000. <i>Better at example 2</i><br>
+			<input type="radio" id="f3" name="rate" value="3"> it's complicated (see source code. todo cleanup)
 		</div>
 	</div>
 </div>
 
 <div class="center">
-	<h1 id="textBig"></h1>
-	<div id="textSmall" class="mono"></div>
+	<div class="left">
+		<h1 id="textBig"></h1>
+		<div id="textSmall" class="mono"></div>
+	</div>
 </div>
 
 <div id="tableArea"></div>
