@@ -20,7 +20,7 @@ missingPrograms()
 	echo ">sudo apt-get install byacc flex gcc make wget perl"
 	echo "(please type your ROOT password if asked):"
 	sudo apt-get install byacc flex gcc make wget perl || error "Failed to install dependencies. Sorry! Try again, or try doing it manually"
-	echo "Dependency installation finished! "
+	echo "Dependency installation finished!"
 }
 
 downloadFailed()
