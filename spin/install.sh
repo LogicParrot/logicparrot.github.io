@@ -46,7 +46,6 @@ command -v make > /dev/null || missingPrograms "make"
 command -v gcc > /dev/null || missingPrograms "GCC compiler"
 command -v perl > /dev/null || missingPrograms "perl"
 command -v wget > /dev/null || missingPrograms "wget"
-missingPrograms
 
 #CHECK IF ALREADY INSTALLED
 if [ -f spin_cli ] && [ -f ispin.tcl ]; then
