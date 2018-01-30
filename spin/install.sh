@@ -75,7 +75,7 @@ else
 	echo "Source code already present. Skipping download"
 fi
 if [ ! -f ispin.tcl ]; then
-	echo "Downloading spin tcl GUI (iSpin) from http://spinroot.com/spin/Src/ispin.tcl..."
+	echo "Downloading iSpin tcl GUI from http://spinroot.com/spin/Src/ispin.tcl..."
 	err=0
 	wget http://spinroot.com/spin/Src/ispin.tcl 2> /dev/null > /dev/null || err=1
 	if [ $err = 1 ]; then
