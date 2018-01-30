@@ -109,7 +109,7 @@ if [ -d Src6.4.7 ]; then echo "Removing leftover from previous compile (Src6.4.7
 echo "Checksums are ok. Compiling... (might take a few seconds/minutes)"
 tar -xf src647.tar.gz || error "Failed to unzip"
 cd Src6.4.7
-make > compile_log.txt 2> compile_errors.txt || error "Compile failed! See log.txt"
+make > compile_log.txt 2> compile_errors.txt || error "Compile failed! See compile_log.txt and compile_errors.txt"
 mv spin ../spin_cli
 cd ..
 rm -fr Src6.4.7
