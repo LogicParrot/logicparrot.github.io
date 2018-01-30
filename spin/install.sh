@@ -9,7 +9,8 @@
 CHECKSUM_ISPIN=1
 echo "this is an interactive spin and iSpin installer by Safwat Halaby"
 echo "The installer will connect to http://spinroot.com and fetch files"
-echo "Alternatively, you have src647.tar.gz and ispin.tcl locally in this directory, the installer will work offline"
+echo "If that fails, http://safwat.xyz is used as a fallback "
+echo "Alternatively, if you have src647.tar.gz and ispin.tcl locally in this directory, the installer will work offline"
 echo "press ENTER to continue, or CTRL+C to abort"
 read dummy
 
