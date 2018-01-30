@@ -7,7 +7,7 @@
 
 { # put the whole thing in a block so as not to behave weirdly if interrupted
 CHECKSUM_ISPIN=1
-echo "this is an interactive spin and iSpin installer by Safwat Halaby"
+echo "This is an interactive spin and iSpin installer by Safwat Halaby"
 echo "The installer will connect to http://spinroot.com and fetch files"
 echo "If that fails, http://safwat.xyz is used as a fallback "
 echo "Alternatively, if you have src647.tar.gz and ispin.tcl locally in this directory, the installer will work offline"
@@ -17,14 +17,15 @@ read dummy
 missingPrograms()
 {
 	echo "$1 is missing. Please install dependencies and then try again. Use:"
-	sudo apt-get install byacc flex gcc make wget perl
+	echo "sudo apt-get install byacc flex gcc make wget perl"
 	exit 1
 }
 
 downloadFailed()
 {
 	echo "Download failed. Bad internet maybe?"
-	exit "Try running again, or try obtaining a local copy of the installer"
+	echo "Try running again, or try obtaining a local copy of the installer"
+	exit 1
 }
 
 error()
@@ -34,11 +35,11 @@ error()
 }
 
 #DEPENDENCY CHECK
-yacc -h > /dev/null || missingPrograms "yacc"
-make -h > /dev/null || missingPrograms "make"
-gcc --help > /dev/null || missingPrograms "GCC compiler"
-perl -h > /dev/null || missingPrograms "perl"
-wget -h > /dev/null || missingPrograms "wget"
+command -v yacc > /dev/null || missingPrograms "yacc"
+command -v make > /dev/null || missingPrograms "make"
+command -v gcc > /dev/null || missingPrograms "GCC compiler"
+command -v perl > /dev/null || missingPrograms "perl"
+command -v wget > /dev/null || missingPrograms "wget"
 
 #CHECK IF ALREADY INSTALLED
 if [ -f spin_cli ] && [ -f ispin.tcl ]; then
@@ -55,7 +56,7 @@ fi
 if [ ! -f src647.tar.gz ]; then
 	echo "Downloading spin source code from http://spinroot.com/spin/Src/src647.tar.gz..."
 	err=0
-	wget http://sspinroot.com/spin/Src/src647.tar.gz 2> /dev/null > /dev/null || err=1
+	wget http://spinroot.com/spin/Src/src647.tar.gz 2> /dev/null > /dev/null || err=1
 	if [ $err = 1 ]; then
 		err=0
 		echo "Couldn't download. Trying to download from mirror: http://www.safwat.xyz/spin/src647.tar.gz"
@@ -70,7 +71,7 @@ fi
 if [ ! -f ispin.tcl ]; then
 	echo "Downloading spin tcl GUI (iSpin) from http://spinroot.com/spin/Src/ispin.tcl..."
 	err=0
-	wget http://sspinroot.com/spin/Src/ispin.tcl 2> /dev/null > /dev/null || err=1
+	wget http://spinroot.com/spin/Src/ispin.tcl 2> /dev/null > /dev/null || err=1
 	if [ $err = 1 ]; then
 		err=0
 		echo "Couldn't download. Trying to download from mirror: http://www.safwat.xyz/spin/ispin.tcl"
@@ -105,7 +106,7 @@ cd Src6.4.7
 make > compile_log.txt 2> compile_errors.txt || error "Compile failed! See log.txt"
 mv spin ../spin_cli
 cd ..
-rm -fr Src6.4.7 compile_log.txt compile_errors.txt
+rm -fr Src6.4.7
 
 #FINALIZE
 echo "Compile success. Finalizing..."
@@ -114,7 +115,7 @@ chmod 755 spin_cli ispin.tcl || error "Unexpected permission set error"
 echo "Finished everything."
 echo ""
 echo "#########"
-echo "READY!, Running iSpin automatically...."
+echo "READY!, Running iSpin..."
 ./ispin.tcl || echo "Hmm... I couldn't run iSpin. You have a problem. try installing again"
 echo "Spin has exited. use ./ispin.tcl to run next time. (or click on ispin in your GUI, if that works)"
 echo "Bye!"
