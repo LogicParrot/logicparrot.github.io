@@ -122,7 +122,7 @@ echo "Finished everything."
 echo ""
 echo "#########"
 echo "READY!, Running iSpin..."
-./ispin.tcl || echo "Hmm... I couldn't run iSpin. You have a problem. try installing again"
+./ispin.tcl || error "Hmm... I couldn't run iSpin. You have a problem. try installing again"
 echo "Spin has exited. use ./ispin.tcl to run next time. (or click on ispin in your GUI, if that works)"
 echo "Bye!"
 exit 0
