@@ -41,7 +41,7 @@ error()
 }
 
 #DEPENDENCY CHECK
-command -v yacc > /dev/null || missingPrograms "yacc"
+command -v yacc > /dev/null || missingPrograms "Bison"
 command -v make > /dev/null || missingPrograms "make"
 command -v gcc > /dev/null || missingPrograms "GCC compiler"
 command -v perl > /dev/null || missingPrograms "perl"
