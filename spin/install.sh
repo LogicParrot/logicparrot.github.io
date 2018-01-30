@@ -7,6 +7,10 @@
 
 { # put the whole thing in a block so as not to behave weirdly if interrupted
 CHECKSUM_ISPIN=1
+echo ""
+echo ""
+echo ""
+echo "------------"
 echo "This is an interactive spin and iSpin installer by Safwat Halaby"
 echo "The installer will connect to http://spinroot.com and fetch files"
 echo "If that fails, http://safwat.xyz is used as a fallback "
@@ -18,8 +22,8 @@ missingPrograms()
 {
 	echo "$1 is missing. I need to install all dependencies first. Auto-executing this command:"
 	echo ">sudo apt-get install byacc flex gcc make wget perl"
-	echo "(please type your ROOT password if asked):"
-	sudo apt-get install byacc flex gcc make wget perl || error "Failed to install dependencies. Sorry! Try again, or try doing it manually"
+	echo "(please type your ROOT password if asked. Also, Internet connection is needed):"
+	sudo apt-get install byacc flex gcc make wget perl || error "Failed to install dependencies. Sorry! Try again, or try running above command manually"
 	echo "Dependency installation finished!"
 }
 
@@ -42,6 +46,7 @@ command -v make > /dev/null || missingPrograms "make"
 command -v gcc > /dev/null || missingPrograms "GCC compiler"
 command -v perl > /dev/null || missingPrograms "perl"
 command -v wget > /dev/null || missingPrograms "wget"
+missingPrograms
 
 #CHECK IF ALREADY INSTALLED
 if [ -f spin_cli ] && [ -f ispin.tcl ]; then
