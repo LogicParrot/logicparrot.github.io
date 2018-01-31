@@ -126,12 +126,14 @@ if [ $CHECKSUM_ISPIN = 1 ] && [ "`sha256sum ispin.tcl`" != "49850de229248f37e622
 	error "If you know what you're doing and have intentionally modified it, set CHECKSUM_ISPIN to 0"
 fi
 
-if [ "`sha256sum example.pml`" != "dceea96e6c09b09f035645ca23b8b1a7276ac2dae463994f5df5e290d62a4d89  example.pml" ]; then
-	if [ $EXAMPLE_NEWLY_DOWNLOADED = 0 ]; then
-		echo "WARNING: example.pml has been modified. Remove it and re run installer to download a fresh copy."
-	else
-		rm example.pml
-		echo "WARNING: example.pml is corrupt. Removing it"
+if [ -f example.pml ]; then
+	if [ "`sha256sum example.pml`" != "dceea96e6c09b09f035645ca23b8b1a7276ac2dae463994f5df5e290d62a4d89  example.pml" ]; then
+		if [ $EXAMPLE_NEWLY_DOWNLOADED = 0 ]; then
+			echo "WARNING: example.pml has been modified. Remove it and re run installer to download a fresh copy."
+		else
+			rm example.pml
+			echo "WARNING: example.pml is corrupt. Removing it"
+		fi
 	fi
 fi
 
