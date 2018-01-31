@@ -122,7 +122,7 @@ echo "Finished everything."
 echo ""
 echo "#########"
 echo "READY!"
-echo "ATTENTION: This only works if your project is in the same folder as spin"
+echo "ATTENTION: Your project must be in the same folder as spin"
 echo "So, put your PML files in this folder:"
 pwd
 echo "Press any key to run SPIN"
