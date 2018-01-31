@@ -1,6 +1,6 @@
 #|| goto :windows_detected
 # to install SPIN, use this command on Debian/Ubuntu:
-# sh -c "$(wget -O - https://safwat.xyz/install-spin)"
+# sh -c "$(wget -O - https://safwat.xyz/install.sh)"
 # More info about spin: http://spinroot.com
 # This is a helper script for installation
 
