@@ -10,6 +10,8 @@
 #2. Run it, it should fetch src647.tar.gz and ispin.tcl
 #3. Copy install.sh, src647.tar.gz, and ispin.tcl into the offline machine 
 #4. Make sure the three files are in the same directory, then run install.sh
+# NOTE: If dependencies are missing, apt-get cannot work offline and needs an
+# internet connection
 
 { # put the whole thing in a block so as not to behave weirdly if interrupted
 CHECKSUM_ISPIN=1
