@@ -113,19 +113,26 @@ make > compile_log.txt 2> compile_errors.txt || error "Compile failed! See compi
 mv spin ../spin_cli
 cd ..
 rm -fr Src6.4.7
+echo "Compile success!"
+
+#Download example
+if [ ! -f example.pml ]; then
+	echo "Downloading sample code..."
+	wget http://www.safwat.xyz/spin/example.pml || echo "Failed to download sample code. Ignoring error"
+fi
 
 #FINALIZE
-echo "Compile success. Finalizing..."
+echo "Finalizing..."
 perl -pe 's/(set SPIN +)spin/$1\.\/spin_cli/' -i ispin.tcl || error "Unexpected perl error"
 chmod 755 spin_cli ispin.tcl || error "Unexpected permission set error"
 echo "Finished everything."
 echo ""
 echo "#########"
 echo "READY!"
-echo "ATTENTION: Your project must be in the same folder as spin"
+echo "ATTENTION: Project must be in the same folder as spin"
 echo "So, put your PML files in this folder:"
 pwd
-echo "Press any key to run SPIN"
+echo "Press ENTER to run SPIN"
 read dummy
 ./ispin.tcl || error "Hmm... I couldn't run iSpin. You have a problem. try installing again"
 echo "Spin has exited. use ./ispin.tcl to run next time. (or click on ispin in your GUI, if that works)"
