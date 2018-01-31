@@ -125,7 +125,7 @@ fi
 
 if [ "`sha256sum example.pml`" != "dceea96e6c09b09f035645ca23b8b1a7276ac2dae463994f5df5e290d62a4d89  example.pml" ]; then
 	rm example.pml
-	echo "WARNING: example.pml is corrupt. Removed the file"
+	echo "WARNING: example.pml is corrupt or has been modified. Remove it and re run installer to download a fresh copy."
 fi
 
 #EXTRACT AND COMPILE
