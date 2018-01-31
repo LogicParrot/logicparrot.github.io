@@ -25,6 +25,7 @@ echo "------------"
 echo "This is an interactive spin and iSpin installer by Safwat Halaby"
 echo "The installer will connect to http://spinroot.com, then fetch and compile files"
 echo "If that fails, http://safwat.xyz is used as a fallback "
+echo "The script only modifies the current directory"
 echo "The installer can also work offline. See comments inside the file"
 echo "press ENTER to continue, or CTRL+C to abort"
 read dummy
@@ -103,13 +104,15 @@ fi
 
 #Download example
 if [ ! -f example.pml ]; then
+	EXAMPLE_NEWLY_DOWNLOADED=1
 	echo "Downloading (3/3) sample code from http://www.safwat.xyz/spin/example.pml..."
 	wget http://www.safwat.xyz/spin/example.pml 2> /dev/null || echo "Failed to download sample code. Ignoring error"
 else
+	EXAMPLE_NEWLY_DOWNLOADED=0
 	echo "Skipped downloading (3/3) sample code. Already present"
 fi
 
-# VERIFY CHECKSUMS
+# VERIFY CHECKSUMS (security against network tampering)
 echo "Downloads complete. Veryifing checksums..."
 if [ "`sha256sum src647.tar.gz`" != "b04c6d7f36ef7763ef6943a8b38cbd08d72504d215d2861a6f2b8a5f36f11147  src647.tar.gz" ]; then
 	echo "Security error. Checksum mismatch for src647.tar.gz"
@@ -124,8 +127,12 @@ if [ $CHECKSUM_ISPIN = 1 ] && [ "`sha256sum ispin.tcl`" != "49850de229248f37e622
 fi
 
 if [ "`sha256sum example.pml`" != "dceea96e6c09b09f035645ca23b8b1a7276ac2dae463994f5df5e290d62a4d89  example.pml" ]; then
-	rm example.pml
-	echo "WARNING: example.pml is corrupt or has been modified. Remove it and re run installer to download a fresh copy."
+	if [ $EXAMPLE_NEWLY_DOWNLOADED = 0 ]; then
+		echo "WARNING: example.pml has been modified. Remove it and re run installer to download a fresh copy."
+	else
+		rm example.pml
+		echo "WARNING: example.pml is corrupt. Removing it"
+	fi
 fi
 
 #EXTRACT AND COMPILE
