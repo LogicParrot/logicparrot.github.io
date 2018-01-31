@@ -121,7 +121,12 @@ chmod 755 spin_cli ispin.tcl || error "Unexpected permission set error"
 echo "Finished everything."
 echo ""
 echo "#########"
-echo "READY!, Running iSpin..."
+echo "READY!"
+echo "ATTENTION: This only works if your project is in the same folder as spin"
+echo "So, put your PML files in this folder:"
+pwd
+echo "Press any key to run SPIN"
+read dummy
 ./ispin.tcl || error "Hmm... I couldn't run iSpin. You have a problem. try installing again"
 echo "Spin has exited. use ./ispin.tcl to run next time. (or click on ispin in your GUI, if that works)"
 echo "Bye!"
