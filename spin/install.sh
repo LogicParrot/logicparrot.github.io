@@ -5,7 +5,7 @@
 # This is a helper script for auto downloading and compiling spin
 # Last update: 31 Jan, 	2018
 
-# The installer normally needs an internet connect, but it can also work offline.
+# This script normally needs an internet connect, but it can also work offline.
 
 #Offline installer instructions:
 # If you'd like to install spin on a machine that has no Internet connection:
