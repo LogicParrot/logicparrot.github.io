@@ -60,7 +60,7 @@ fi
 
 #DOWNLOAD OR CHECK IF SOURCE CODE IS ALREADY THERE
 if [ ! -f src647.tar.gz ]; then
-	echo "Downloading spin source code from http://spinroot.com/spin/Src/src647.tar.gz..."
+	echo "Downloading (1/3) spin source code from http://spinroot.com/spin/Src/src647.tar.gz..."
 	err=0
 	wget http://spinroot.com/spin/Src/src647.tar.gz 2> /dev/null > /dev/null || err=1
 	if [ $err = 1 ]; then
@@ -72,10 +72,10 @@ if [ ! -f src647.tar.gz ]; then
 		downloadFailed
 	fi
 else
-	echo "Source code already present. Skipping download"
+	echo "Skipped downloading (1/3) spin source code. already present"
 fi
 if [ ! -f ispin.tcl ]; then
-	echo "Downloading iSpin tcl GUI from http://spinroot.com/spin/Src/ispin.tcl..."
+	echo "Downloading (2/3) iSpin tcl GUI from http://spinroot.com/spin/Src/ispin.tcl..."
 	err=0
 	wget http://spinroot.com/spin/Src/ispin.tcl 2> /dev/null > /dev/null || err=1
 	if [ $err = 1 ]; then
@@ -87,11 +87,19 @@ if [ ! -f ispin.tcl ]; then
 		downloadFailed
 	fi
 else
-	echo "GUI already present. Skipping download"
+	echo "Skipped downloading (2/3) iSpin tcl GUI. Already present"
+fi
+
+#Download example
+if [ ! -f example.pml ]; then
+	echo "Downloading (3/3) sample code from http://www.safwat.xyz/spin/example.pml..."
+	wget http://www.safwat.xyz/spin/example.pml 2> /dev/null || echo "Failed to download sample code. Ignoring error"
+else
+	echo "Skipped downloading (3/3) sample code. Already present"
 fi
 
 # VERIFY CHECKSUMS
-echo "Download complete. Veryifing checksums..."
+echo "Downloads complete. Veryifing checksums..."
 if [ "`sha256sum src647.tar.gz`" != "b04c6d7f36ef7763ef6943a8b38cbd08d72504d215d2861a6f2b8a5f36f11147  src647.tar.gz" ]; then
 	echo "Security error. Checksum mismatch for src647.tar.gz"
 	error "src647.tar.gz is corrupt. Try running again. Or try removing it and then run again. Or try to obtain an original copy."
@@ -104,6 +112,11 @@ if [ $CHECKSUM_ISPIN = 1 ] && [ "`sha256sum ispin.tcl`" != "49850de229248f37e622
 	error "If you know what you're doing and have intentionally modified it, set CHECKSUM_ISPIN to 0"
 fi
 
+if [ "`sha256sum example.pml`" != "dceea96e6c09b09f035645ca23b8b1a7276ac2dae463994f5df5e290d62a4d89  example.pml" ]; then
+	rm example.pml
+	echo "WARNING: example.pml is corrupt. Removed the file"
+fi
+
 #EXTRACT AND COMPILE
 if [ -d Src6.4.7 ]; then echo "Removing leftover from previous compile (Src6.4.7)..."; rm -fr Src6.4.7; fi
 echo "Checksums are ok. Compiling... (might take a few seconds/minutes)"
@@ -113,16 +126,9 @@ make > compile_log.txt 2> compile_errors.txt || error "Compile failed! See compi
 mv spin ../spin_cli
 cd ..
 rm -fr Src6.4.7
-echo "Compile success!"
-
-#Download example
-if [ ! -f example.pml ]; then
-	echo "Downloading sample code..."
-	wget http://www.safwat.xyz/spin/example.pml || echo "Failed to download sample code. Ignoring error"
-fi
 
 #FINALIZE
-echo "Finalizing..."
+echo "Compile success! Finalizing..."
 perl -pe 's/(set SPIN +)spin/$1\.\/spin_cli/' -i ispin.tcl || error "Unexpected perl error"
 chmod 755 spin_cli ispin.tcl || error "Unexpected permission set error"
 echo "Finished everything."
