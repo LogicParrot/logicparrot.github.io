@@ -2,8 +2,14 @@
 # to install SPIN, use this command on Debian/Ubuntu:
 # sh -c "$(wget -O - https://safwat.xyz/install-spin)"
 # More info about spin: http://spinroot.com
-# This is a helper script for installation,
-# written by Safwat Halaby
+# This is a helper script for installation
+
+#Offline installer instructions:
+# If you'd like to install spin on a machine that has no Internet connection:
+#1. Download www.safwat.xyz/spin/install.sh
+#2. Run it, it should fetch src647.tar.gz and ispin.tcl
+#3. Copy install.sh, src647.tar.gz, and ispin.tcl into the offline machine 
+#4. Make sure the three files are in the same directory, then run install.sh
 
 { # put the whole thing in a block so as not to behave weirdly if interrupted
 CHECKSUM_ISPIN=1
@@ -14,7 +20,7 @@ echo "------------"
 echo "This is an interactive spin and iSpin installer by Safwat Halaby"
 echo "The installer will connect to http://spinroot.com, then fetch and compile files"
 echo "If that fails, http://safwat.xyz is used as a fallback "
-echo "Alternatively, if you have src647.tar.gz and ispin.tcl locally in this directory, the installer will work offline"
+echo "The installer can also work offline. See comments inside the file"
 echo "press ENTER to continue, or CTRL+C to abort"
 read dummy
 
