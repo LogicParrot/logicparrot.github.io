@@ -3,7 +3,7 @@
 # sh -c "$(wget -O - https://safwat.xyz/install.sh)"
 # More info about spin: http://spinroot.com
 # This is a helper script for installation
-# Last update: 31 Jan, 2018
+# Last update: 31 Jan, 	2018
 
 # The installer normally needs an internet connect, but it can also work offline.
 
@@ -14,7 +14,7 @@
 #3. Copy install.sh, src647.tar.gz, and ispin.tcl into the offline machine 
 #4. Make sure the three files are in the same directory, then run install.sh
 # NOTE: If dependencies are missing, apt-get cannot work offline and needs an
-# internet connection
+# internet connection. The dependencies are: bison gcc make wget perl
 
 { # put the whole thing in a block so as not to behave weirdly if interrupted
 CHECKSUM_ISPIN=1
