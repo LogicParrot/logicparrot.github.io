@@ -151,7 +151,9 @@ rm -fr Src6.4.7
 echo "Compile success! Finalizing..."
 perl -pe 's/(set SPIN +)spin/$1\.\/spin_cli/' -i ispin.tcl || error "Unexpected perl error"
 chmod 755 spin_cli ispin.tcl || error "Unexpected permission set error"
-chmod 666 example.pml || error "Unexpected permission set error #2"
+if [ -f example.pml ]; then
+	chmod 666 example.pml || error "Unexpected permission set error #2"
+fi
 echo "Finished everything."
 echo ""
 echo "#########"
