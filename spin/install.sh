@@ -3,6 +3,7 @@
 # sh -c "$(wget -O - https://safwat.xyz/install.sh)"
 # More info about spin: http://spinroot.com
 # This is a helper script for installation
+# Last update: 31 Jan, 2018
 
 # The installer normally needs an internet connect, but it can also work offline.
 
