@@ -1,12 +1,8 @@
 function doMain()
 {
 	var now = new Date();
-	//var eventNorth = new Date(2018, 1, 9);
-	//var eventCarmel = new Date(2018, 1, 20);
 	var eventNorth = new Date(2018, 1, 9);
 	var eventCarmel = new Date(2018, 1, 20);
-	
-	console.log(eventNorth);
 	
 	var elNorth = document.getElementById("north");
 	var elCarmel1 = document.getElementById("carmel1");
@@ -41,7 +37,6 @@ function manageTimer(el, days)
 		str = translations["days_prefix"] + " " + days + " " + translations["days_suffix"];
 	str = " (" + str + ")";
 	
-	console.log("STR: ", str);
 	el.innerHTML = str;
 }
 
