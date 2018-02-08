@@ -9,13 +9,15 @@ function doMain()
 	console.log(eventNorth);
 	
 	var elNorth = document.getElementById("north");
-	var elCarmel = document.getElementById("carmel");
+	var elCarmel1 = document.getElementById("carmel1");
+	var elCarmel2 = document.getElementById("carmel2");
 	
 	daysTillNorth = getDays(now, eventNorth);
 	daysTillCarmel = getDays(now, eventCarmel);
 	
 	manageTimer(elNorth, daysTillNorth);
-	manageTimer(elCarmel, daysTillCarmel);
+	manageTimer(elCarmel1, daysTillCarmel);
+	manageTimer(elCarmel2, daysTillCarmel);
 	
 	if ((daysTillNorth >= 0) || (daysTillCarmel >= 0))
 	{
