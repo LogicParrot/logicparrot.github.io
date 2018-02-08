@@ -1,0 +1,26 @@
+body{margin:1em auto;max-width:40em;padding:0 1em;font:1.2em/1.4em sans-serif;background:radial-gradient(#FFF, #FF9);}
+
+/*TABLES*/
+tr:nth-child(even) {background: #CCC}; tr:nth-child(odd) {background: #FFF}
+table, th, td {border: 1px solid black; border-collapse: collapse;}
+
+/*IMAGES*/
+#header_photo{border-color: rgba(255,255,255,0.42);}
+
+/*EYE CATCHING TEXT*/
+.red{ color: #F00; font-weight: bold;}
+
+/*PRETTY EMBED*/
+.container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+}
+iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
