@@ -15,12 +15,16 @@ function doMain()
 	manageTimer(elCarmel1, daysTillCarmel);
 	manageTimer(elCarmel2, daysTillCarmel);
 	
+	// refresh at midnight + 30 minutes
 	if ((daysTillNorth >= 0) || (daysTillCarmel >= 0))
 	{
 		var midnight = new Date();
 		midnight.setDate(midnight.getDate() + 1);
 		midnight.setHours(0,0,0,0);
-		setTimeout(function(){location.reload(); }, midnight - now + 10000);
+		var waitAmount = midnight - now;
+		if (waitAmount < 0) waitAmount = 0; // should never happen, but just in case
+		var thirtyMinutes = 1000 * 60 * 30;
+		setTimeout(function(){location.reload(); }, waitAmount + thirtyMinutes);
 	}
 }
 
@@ -33,6 +37,8 @@ function manageTimer(el, days)
 		str = translations["ended"];
 	else if (days == 1)
 		str = '<label class="red">'+translations["tomorrow"]+"</label>";
+	else if (days <= 3)
+		str = '<label class="green">' + translations["days_prefix"] + " " + days + " " + translations["days_suffix"] + "</label>";
 	else
 		str = translations["days_prefix"] + " " + days + " " + translations["days_suffix"];
 	str = " (" + str + ")";

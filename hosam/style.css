@@ -9,6 +9,7 @@ table, th, td {border: 1px solid black; border-collapse: collapse;}
 
 /*EYE CATCHING TEXT*/
 .red{ color: #F00; font-weight: bold;}
+.green{ color: #00cc99; font-weight: bold;}
 
 /*PRETTY EMBED*/
 .container {
