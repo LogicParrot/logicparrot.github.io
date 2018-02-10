@@ -3,6 +3,7 @@ body{margin:1em auto;max-width:40em;padding:0 1em;font:1.2em/1.4em sans-serif;ba
 /*TABLES*/
 tr:nth-child(even) {background: #CCC}; tr:nth-child(odd) {background: #FFF}
 table, th, td {border: 1px solid black; border-collapse: collapse;}
+td {padding: 0.3em;}
 
 /*IMAGES*/
 #header_photo{border-color: rgba(255,255,255,0.42);}
