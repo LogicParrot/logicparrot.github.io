@@ -1,22 +1,17 @@
 function doMain()
 {
 	var now = new Date();
-	var eventNorth = new Date(2018, 1, 9);
 	var eventCarmel = new Date(2018, 1, 20);
-	
-	var elNorth = document.getElementById("north");
+
 	var elCarmel1 = document.getElementById("carmel1");
 	var elCarmel2 = document.getElementById("carmel2");
 	
-	daysTillNorth = getDays(now, eventNorth);
 	daysTillCarmel = getDays(now, eventCarmel);
-	
-	manageTimer(elNorth, daysTillNorth);
 	manageTimer(elCarmel1, daysTillCarmel);
 	manageTimer(elCarmel2, daysTillCarmel);
-	
+		
 	// refresh at midnight + 30 minutes
-	if ((daysTillNorth >= 0) || (daysTillCarmel >= 0))
+	if (daysTillCarmel >= 0)
 	{
 		var midnight = new Date();
 		midnight.setDate(midnight.getDate() + 1);
