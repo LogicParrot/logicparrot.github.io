@@ -1,4 +1,5 @@
-body{margin:1em auto;max-width:40em;padding:0 1em;font:1.2em/1.4em sans-serif;background:radial-gradient(#FFF, #FF9);}
+body{margin:1em auto;max-width:40em;padding:0 1em;font:1.2em/1.4em sans-serif;
+/*background:radial-gradient(#FFF, #FF9);*/}
 
 /*TABLES*/
 tr:nth-child(even) {background: #CCC}; tr:nth-child(odd) {background: #FFF}
