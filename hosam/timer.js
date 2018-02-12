@@ -1,5 +1,11 @@
 function doMain()
 {
+	setupAllTimers();      // setup event timers
+	shufflePhoneNumbers(); // shuffle phone numbers to load balance phone calls
+}
+
+function setupAllTimers()
+{
 	var now = new Date();
 	var eventCarmel = new Date(2018, 1, 20);
 
@@ -52,4 +58,34 @@ function getDays(now, later)
 		days = Math.ceil((later - now) / (1000*60*60*24));
 		if (days < -1) days = -1;
 		return days;
+}
+
+
+function shufflePhoneNumbers()
+{
+	var numbers = [];
+	{ // fill numbers array
+		var els = document.getElementsByClassName("phoneNumber");
+		for (var i = 0; i < els.length; ++i)
+		{
+			numbers.push(els[i].innerHTML);
+		}
+	}
+	{  // shuffle numbers array
+		var temp = [];
+		while (numbers.length > 0)
+		{
+			var index = Math.floor(Math.random() * numbers.length);
+			var removedValue = numbers.splice(index, 1)[0];
+			temp.push(removedValue);
+		}
+		numbers = temp;
+	}
+	{ // put back in HTML
+		var els = document.getElementsByClassName("phoneNumber");
+		for (var i = 0; i < els.length; ++i)
+		{
+			els[i].innerHTML = numbers[i];
+		}
+	}
 }
