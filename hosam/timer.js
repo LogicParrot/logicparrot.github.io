@@ -8,15 +8,10 @@ function setupAllTimers()
 {
 	var now = new Date();
 	var eventCarmel = new Date(2018, 1, 20);
-
-	var elCarmel1 = document.getElementById("carmel1");
-	var elCarmel2 = document.getElementById("carmel2");
-	var elCarmel3 = document.getElementById("carmel3");
+	var elCarmel = document.getElementById("carmel");
 	
 	daysTillCarmel = getDays(now, eventCarmel);
-	manageTimer(elCarmel1, daysTillCarmel);
-	manageTimer(elCarmel2, daysTillCarmel);
-	manageTimer(elCarmel3, daysTillCarmel);
+	manageTimer(elCarmel, daysTillCarmel);
 		
 	// refresh at midnight + 30 minutes
 	if (daysTillCarmel >= 0)
