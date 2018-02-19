@@ -20,9 +20,9 @@ function setupAllTimers()
 		midnight.setDate(midnight.getDate() + 1);
 		midnight.setHours(0,0,0,0);
 		var waitAmount = midnight - now;
-		if (waitAmount < 0) waitAmount = 0; // should never happen, but just in case
+		if (waitAmount < thirtyMinutes) waitAmount = thirtyMinutes; // should never happen, but just in case
 		var thirtyMinutes = 1000 * 60 * 30;
-		setTimeout(function(){location.reload(); }, waitAmount + thirtyMinutes);
+		setTimeout(function(){location.reload(); }, waitAmount + 5000);
 	}
 }
 
