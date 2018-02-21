@@ -1,6 +1,6 @@
 function doMain()
 {
-	setupAllTimers();      // setup event timers
+	//setupAllTimers();      // setup event timers
 	shufflePhoneNumbers(); // shuffle phone numbers to load balance phone calls
 }
 
