@@ -63,7 +63,7 @@
 	<tr>
 		<td>חיפה</td>
 		<td>הטכניון, רחבת ספריה מרכזית</td>
-		<td>שלישי 27/2</td>
+		<td>שלישי 27/2<label id="timeTechnion"></label></td>
 		<td>9:00 - 19:00</td>
 	</tr>
 	<tr>
@@ -167,20 +167,6 @@
 
 <a href="archive.html">לחצו כאן</a> לכל העדכונים.
 
-<script>
-var translations = [];
-function main()
-{
-	translations["tomorrow"] = "מחר!";
-	translations["today"] = "היום!";
-	translations["days_prefix"] = "בעוד";
-	translations["days_suffix"] = "ימים";
-	translations["ended"] = "האירוע הסתיים";
-	doMain();
-}
-</script>
-<script src="timer.js"></script>
-
 <h1>קישורים חיצוניים</h1>
 
 <b>רשתות חברתיות:</b>
@@ -207,4 +193,19 @@ function main()
 </ul>
 
 <p> לנושאים הקשורים לדף הזה (הצעות, דיווח על מידע שגוי, בירורים, או כל דבר אחר), ניתן ליצור קשר עם ספואת חלבי <a href="https://docs.google.com/forms/d/e/1FAIpQLSfopNH3TfZGxomTABsfOKUYubzqoHBHPopjFNkqx8cBWo6KtQ/viewform?usp=sf_link">בטופס הבא</a>.</p>
+
+<script>
+var translations = [];
+function main()
+{
+	translations["tomorrow"] = "מחר!";
+	translations["today"] = "היום!";
+	translations["days_prefix"] = "בעוד";
+	translations["days_suffix"] = "ימים";
+	translations["ended"] = "האירוע הסתיים";
+	var timers = [{"el": "timeTechnion", "year": 2018, "month": 2, "day": 27}];
+	doMain(timers);
+}
+</script>
+<script src="timer.js"></script>
 </body></html>

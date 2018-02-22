@@ -1,20 +1,22 @@
-function doMain()
+function doMain(timers)
 {
-	//setupAllTimers();      // setup event timers
+	setupAllTimers(timers);      // setup event timers
 	shufflePhoneNumbers(); // shuffle phone numbers to load balance phone calls
 }
 
-function setupAllTimers()
+function setupAllTimers(timers)
 {
-	var now = new Date();
-	var eventCarmel = new Date(2018, 1, 20);
-	var elCarmel = document.getElementById("carmel");
 	
-	daysTillCarmel = getDays(now, eventCarmel);
-	manageTimer(elCarmel, daysTillCarmel);
-		
-	// refresh at midnight + 30 minutes
-	if (daysTillCarmel >= 0)
+	var minDaysLeft = -1;
+	for (var i = 0; i < timers.length; ++i)
+	{
+		timerData = timers[i];
+		var daysLeft = setupOneTimer(document.getElementById(timerData.el), timerData.year, timerData.month, timerData.day);
+		if ((daysLeft != -1) && (daysLeft < minDaysLeft)) minDaysLeft = daysLeft;
+	}
+	
+	// refresh at midnight
+	if (minDaysLeft >= 0)
 	{
 		var midnight = new Date();
 		midnight.setDate(midnight.getDate() + 1);
@@ -26,7 +28,18 @@ function setupAllTimers()
 	}
 }
 
-function manageTimer(el, days)
+function setupOneTimer(el, year, month, day)
+{
+	if (el == undefined) return;
+	var now = new Date();
+	var eventCarmel = new Date(year, month - 1, day);
+	
+	daysLeft = getDays(now, eventCarmel);
+	updateElement(el, daysLeft);
+	return daysLeft;
+}
+
+function updateElement(el, days)
 {
 	var str;
 	if (days == 0)
