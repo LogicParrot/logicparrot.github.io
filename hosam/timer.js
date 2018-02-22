@@ -32,9 +32,9 @@ function setupOneTimer(el, year, month, day)
 {
 	if (el == undefined) return;
 	var now = new Date();
-	var eventCarmel = new Date(year, month - 1, day);
+	var eventDate = new Date(year, month - 1, day);
 	
-	daysLeft = getDays(now, eventCarmel);
+	daysLeft = getDays(now, eventDate);
 	updateElement(el, daysLeft);
 	return daysLeft;
 }
