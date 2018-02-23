@@ -2,29 +2,15 @@ function doMain(timers)
 {
 	setupAllTimers(timers);      // setup event timers
 	shufflePhoneNumbers(); // shuffle phone numbers to load balance phone calls
+	setTimeout(function(){location.reload(); }, 1000 * 60 * 40 /*Reload every 40 minutes*/);
 }
 
 function setupAllTimers(timers)
 {
-	
-	var minDaysLeft = -1;
 	for (var i = 0; i < timers.length; ++i)
 	{
 		timerData = timers[i];
-		var daysLeft = setupOneTimer(document.getElementById(timerData.el), timerData.year, timerData.month, timerData.day);
-		if ((daysLeft != -1) && (daysLeft < minDaysLeft)) minDaysLeft = daysLeft;
-	}
-	
-	// refresh at midnight
-	if (minDaysLeft >= 0)
-	{
-		var midnight = new Date();
-		midnight.setDate(midnight.getDate() + 1);
-		midnight.setHours(0,0,0,0);
-		var waitAmount = midnight - now;
-		if (waitAmount < thirtyMinutes) waitAmount = thirtyMinutes; // should never happen, but just in case
-		var thirtyMinutes = 1000 * 60 * 30;
-		setTimeout(function(){location.reload(); }, waitAmount + 5000);
+		setupOneTimer(document.getElementById(timerData.el), timerData.year, timerData.month, timerData.day);
 	}
 }
 
@@ -36,7 +22,6 @@ function setupOneTimer(el, year, month, day)
 	
 	daysLeft = getDays(now, eventDate);
 	updateElement(el, daysLeft);
-	return daysLeft;
 }
 
 function updateElement(el, days)
