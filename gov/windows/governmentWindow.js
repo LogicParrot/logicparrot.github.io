@@ -1,3 +1,4 @@
+// functions available to other modules:
 var link_government;
 var goto_government;
 
@@ -6,7 +7,7 @@ var goto_government;
 	function draw_governmentWindow(govNumber)
 	{
 		if (typeof govNumber == "string") govNumber = parseInt(govNumber);
-		
+		console.log("Rendering government window for government", govNumber);
 		var gov = data_governments[govNumber - 1];
 		var container = d3.select("#container");
 		document.body.dir = "rtl"
@@ -94,7 +95,6 @@ var goto_government;
 	
 	function goto_government_(gov)
 	{
-		console.log("Going to", gov);
 		draw(function()
 		{
 			draw_governmentWindow(gov);

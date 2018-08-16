@@ -1,7 +1,13 @@
+// functions available outside of the module
 var init;
+// also "draw", defined below in the draw logic.
+
+// global variables
 var data_governments;
 var data_parties;
 var data_partiesInGovernment;
+// also gWidth, gHeight, gMin. Defined below in the resize logic
+
 (function()
 {	
 	function init_()
@@ -13,7 +19,7 @@ var data_partiesInGovernment;
 		data_governments = data_governments_;
 		data_parties = data_parties_;
 		data_partiesInGovernment = data_partiesInGovernment_;
-		console.log("Done reading data. ");
+		console.log("Done reading CSV data");
 		draw(function()
 		{
 			draw_listWindow();
@@ -243,7 +249,7 @@ function makeBoldKeys(data)
 
 function addBackButton(container)
 {
-	container.append("a").attr("href", "#").html("דף ראשי").on("click", function()
+	container.append("a").attr("href", "#").style("font-size", "1.5em").html("דף ראשי").on("click", function()
 	{
 		draw(function()
 		{

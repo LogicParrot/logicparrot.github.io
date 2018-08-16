@@ -1,3 +1,4 @@
+// functions available to other modules:
 var link_party;
 var goto_party;
 
@@ -5,6 +6,7 @@ var goto_party;
 {
 	function draw_partyWindow(partyName)
 	{
+		console.log("Rendering party window for:",partyName);
 		var container = d3.select("#container");
 		document.body.dir = "rtl"
 		container.html("").style("padding", "2em"); // Remove previous content
@@ -95,15 +97,11 @@ var goto_party;
 			var currentArc = 0;
 			var size = document.getElementById("pieChartContainer").clientWidth;
 			var svg = container.append("svg").attr("width", size).attr("height", size);
-			console.log(size);
 			
 			var sum = totalCoalition + totalOpposition;
 			var coalitionNoPM = totalCoalition - totalPrimeMinister;
 			var coalitionPM = totalPrimeMinister;
 			var opposition = totalOpposition;
-			console.log("noPM", coalitionNoPM);
-			console.log("PM", coalitionPM);
-			console.log("opposiiton", opposition);
 			
 			drawPiePart(360 * coalitionNoPM / sum, "LightBlue");
 			drawPiePart(360 * coalitionPM / sum, "LightGreen");
@@ -119,7 +117,6 @@ var goto_party;
 					svg.append("path").attr("fill", color).attr("d", describeArc(size / 2, size / 2, size / 2, 350, 10));
 					end = 359;
 				}
-				console.log(color, start, end);
 				svg.append("path").attr("fill", color).attr("d", describeArc(size / 2, size / 2, size / 2, start, end));
 				
 				currentArc += arc;

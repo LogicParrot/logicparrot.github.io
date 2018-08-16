@@ -1,4 +1,5 @@
-var draw_listWindow; // only export this function to other files
+// functions available to other modules:
+var draw_listWindow;
 
 (function()
 {
