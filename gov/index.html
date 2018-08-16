@@ -1,0 +1,25 @@
+<!DOCTYPE HTML><html>
+	<head>
+			<meta charset="utf-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"/>
+			<style>
+				body, svg, div { padding: 0px; margin: 0px;}
+				body { min-height: 105vh }
+				table, td, th { border: 1px solid black;}
+				table { border-collapse: collapse; }
+				td { padding: 0.5em; }
+				svg {cursor: default;}
+				.clickable {cursor: pointer;}
+				#pieChartContainer { width: 10em; height: 10em; display: inline-block; margin-right: 1em; }
+			 </style>
+	</head>
+	
+	<body onload="init()">
+		<div id="container"></div>
+		<script src="d3.v5.js"></script>
+		<script src="main.js"></script>
+		<script src="windows/listWindow.js"></script>
+		<script src="windows/partyWindow.js"></script>
+		<script src="windows/governmentWindow.js"></script>
+	</body>
+</html>
