@@ -144,7 +144,9 @@ var gMin; // minimum of gWidth, gHeight
 
 (function()
 {
+	var firstResize = false; // is this the first resize?
 	var resizeTimeout = null;
+	
 	window.onresize = resize;
 	function resize() {
 		if (resizeTimeout != null) 
@@ -165,6 +167,34 @@ var gMin; // minimum of gWidth, gHeight
 		gHeight = window.innerHeight;
 		gWidth = document.body.clientWidth;
 		gMin = Math.min(gWidth, gHeight);
+		handleSmartphoneLandscapeMode();
+	}
+	
+	var isSmartphone = true; 
+	if (navigator.userAgent.match(/Android/i)
+		|| navigator.userAgent.match(/webOS/i)
+		|| navigator.userAgent.match(/iPhone/i)
+		|| navigator.userAgent.match(/iPad/i)
+		|| navigator.userAgent.match(/iPod/i)
+		|| navigator.userAgent.match(/BlackBerry/i)
+		|| navigator.userAgent.match(/Kindle/i)
+	)
+		isSmartphone = true;
+	var landScapeMessageHasBeenShown = false;
+	function handleSmartphoneLandscapeMode()
+	{
+		console.log("isSmartPhone", isSmartphone);
+		console.log("height", gHeight, "width", gWidth);
+		
+		if ((!landScapeMessageHasBeenShown) && isSmartphone && (gHeight > gWidth))
+		{
+			landScapeMessageHasBeenShown = true;
+			d3.select("#landscape").attr("class", "")
+			setTimeout(function()
+			{
+				d3.select("#landscape").attr("class", "hidden")
+			}, 5000);
+		}
 	}
 
 
@@ -262,7 +292,7 @@ function createClickableLink(value, callbackString)
 {
 	if (typeof value == "string") value = value.replace('"', '&quot;');
 	
-	return '<div class="clickable" ' +
+	return '<div class="clickable blue" ' +
 		'onMouseOver="this.style.background = \'#bbb\'" ' + 
 		'onMouseOut="this.style.background=\'#fff\'" ' +
 		'onClick="' + callbackString + "('" + value + "')" + '" ' + 

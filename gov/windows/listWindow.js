@@ -11,7 +11,7 @@ var draw_listWindow;
 		d3.select("#container").html("").style("padding", "0px"); // Remove previous content
 		document.body.dir = null;
 		var unit = Math.ceil(gWidth/60); // the smallest size unit we'll use.
-		var upperPadding = unit * 4;
+		var upperPadding = unit * 5;
 		var leftLinePadding = unit * 5;
 		var svg = d3.select("#container").append("svg")
 			.attr("height", upperPadding + 2 * unit * data_governments.length)
@@ -27,6 +27,13 @@ var draw_listWindow;
 			.attr("text-anchor", "middle")
 			.html("ויזוליזציה למפלגות ממשלת ישראל")
 			.style("font-size", (unit * 2) + "px");
+		svg.append("text")
+			.attr("x", gWidth / 2)
+			.attr("y", upperPadding / 2 + unit)
+			.attr("text-anchor", "middle")
+			.html("לחצו על שנה או על מפלגה למידע נוסף...")
+			.style("font-size", (unit) + "px");
+		
 		
 		// foreach row
 		for (var i = 0; i < data_governments.length; i++)
@@ -113,17 +120,23 @@ var draw_listWindow;
 				// cut off long names if there isn't enough space
 				var name = d.party;
 				var seats = d.seats;
-				if (seats > 15) 
+				if (seats > 18) 
 					return nameAndSeats(name);
-				else if (seats > 5)
+				else if (seats > 10)
 				{
-					var limit = 8;
+					var limit = 6;
 					if (name.length > limit)
 						return nameAndSeats(name.substring(0, limit - 3), true);
 					else 
 						return nameAndSeats(name);
 				}
-				else 
+				else if (seats > 5)
+				{
+					var party = data_parties[d.party];
+					if (party.shortName !== undefined)
+						return party.shortName;
+				}
+				else
 					return "";
 			}
 			
@@ -160,7 +173,7 @@ var draw_listWindow;
 			.attr("y", yMiddle + unit / 4)
 			.attr("text-anchor", "middle")
 			.attr("class", "clickable")
-			.style("font-size", Math.ceil(unit / 1.5) + "px")
+			.style("font-size", Math.ceil(unit) + "px")
 			.html(calcPartyDisplayName).on('click', function(d){
 				goto_party(d.party);
 			});

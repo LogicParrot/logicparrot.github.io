@@ -68,26 +68,6 @@ var goto_government;
 		
 	}
 	
-	function button_governmentWindow_(d, gov)
-	{
-		d.attr("class", "clickable")
-			.on('mouseover', function(){
-				d3.select(this).style("fill","#d0d")
-			}).on('click', (function(gov_){
-				return (function()
-				{
-					draw(function()
-					{
-						draw_governmentWindow(gov_);
-					});
-				})
-			})(gov)
-			).on('mouseout', function(){
-				d3.select(this)
-				.style("fill","#000");
-			})
-	}
-	
 	function link_government_(gov)
 	{
 		return createClickableLink(gov, "goto_government");

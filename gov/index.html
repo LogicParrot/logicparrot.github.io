@@ -2,6 +2,7 @@
 	<head>
 			<meta charset="utf-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"/>
+			<title>ויזואליזציה למפלגות ישראל</title>
 			<style>
 				body, svg, div { padding: 0px; margin: 0px;}
 				body { min-height: 105vh }
@@ -11,15 +12,47 @@
 				svg {cursor: default;}
 				.clickable {cursor: pointer;}
 				#pieChartContainer { width: 10em; height: 10em; display: inline-block; margin-right: 1em; }
+				.hidden { display: none; }
+				.blue { color: blue; text-decoration: underline;}
 			 </style>
 	</head>
 	
 	<body onload="init()">
+		<div id="landscape" class="hidden" style="text-align: center;">
+			<img src="landscape.png"/ style="height: 2em">
+			<div>מומלץ להעביר את המכשיר למצב אופקי</div>
+			<hr/>
+		</div>
 		<div id="container"></div>
 		<script src="d3.v5.js"></script>
 		<script src="main.js"></script>
 		<script src="windows/listWindow.js"></script>
 		<script src="windows/partyWindow.js"></script>
 		<script src="windows/governmentWindow.js"></script>
+		<div dir="rtl">
+			הקוד והמידע פתוחים תחת רשיון <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPLv3</a>. הקבצים ניתנים לצפיה ב-
+			<a href="https://github.com/SafwatHalaby/safwathalaby.github.io/tree/master/gov">Github</a>.<br/>
+			(כלומר, ניתן להשתמש בקוד באופן חופשי, כל עוד התוצר הסופי שלכם מפורסם כקוד פתוח תחת אותו רשיון)
+		</div>
+		<div dir="rtl">
+			המידע נאסף ידנית ועלול להכיל שגיאות. נא לדווח ב- 
+			<a href="https://github.com/SafwatHalaby/safwathalaby.github.io/issues">Github</a>.<br/>
+			ניתן  להשתמש במידע תחת רשיון <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPLv3</a>.<br/>
+			חלק ניכר מהמידע נאסף מויקיפידיה תחת רשיון CC-BY-SA 3.0 במקור, אשר תואם ל- CC-BY-SA 4.0, אשר תואם ל- <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPLv3</a>.
+		</div>
+		
+		<div>
+			Source code and raw data is <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPLv3</a> licensed.<br/>
+			(Meaning you can use it freely so long as you distribute your source code changes under the same free license).<br/>
+			Visit <a href="https://github.com/SafwatHalaby/safwathalaby.github.io/tree/master/gov">Github</a> to view the code. 
+		</div>
+		
+		<div>
+		The raw information was produced manually and may contain issues. Please report at
+		<a href="https://github.com/SafwatHalaby/safwathalaby.github.io/issues">Github</a>.<br/>
+		The information can be used under <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPLv3</a>. <br/>
+		A substantial portion of the information is based on Wikipedia articles, which is originally CC-BY-SA 3.0 licensed, which is compatible with CC-BY-SA 4.0,
+		which is compatible with <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPLv3</a>.
+		</div>
 	</body>
 </html>
