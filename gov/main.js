@@ -181,6 +181,7 @@ var gMin; // minimum of gWidth, gHeight
 	)
 		isSmartphone = true;
 	var landScapeMessageHasBeenShown = false;
+	var timeout = null;
 	function handleSmartphoneLandscapeMode()
 	{
 		console.log("height", gHeight, "width", gWidth);		
@@ -188,11 +189,19 @@ var gMin; // minimum of gWidth, gHeight
 		{
 			landScapeMessageHasBeenShown = true;
 			d3.select("#landscape").attr("class", "")
-			setTimeout(function()
-			{
-				d3.select("#landscape").attr("class", "hidden")
-			}, 5000);
+			timeout = setTimeout(removeSmartphoneMessage, 15000);
 		}
+		else if (timeout != null)
+		{
+			clearTimeout(timeout);
+			timeout = null;
+			removeSmartphoneMessage();
+			
+		}
+	}
+	function removeSmartphoneMessage()
+	{
+		d3.select("#landscape").attr("class", "hidden")
 	}
 
 
