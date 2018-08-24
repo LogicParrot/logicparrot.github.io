@@ -181,7 +181,6 @@ var gMin; // minimum of gWidth, gHeight
 	)
 		isSmartphone = true;
 	var landScapeMessageHasBeenShown = false;
-	var timeout = null;
 	function handleSmartphoneLandscapeMode()
 	{
 		console.log("height", gHeight, "width", gWidth);		
@@ -189,14 +188,7 @@ var gMin; // minimum of gWidth, gHeight
 		{
 			landScapeMessageHasBeenShown = true;
 			d3.select("#landscape").attr("class", "")
-			timeout = setTimeout(removeSmartphoneMessage, 15000);
-		}
-		else if (timeout != null)
-		{
-			clearTimeout(timeout);
-			timeout = null;
-			removeSmartphoneMessage();
-			
+			setTimeout(removeSmartphoneMessage, 7000);
 		}
 	}
 	function removeSmartphoneMessage()
