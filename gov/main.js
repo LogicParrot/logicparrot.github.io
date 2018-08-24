@@ -276,15 +276,20 @@ function makeBoldKeys(data)
 	}
 }
 
+function addButton(container, text, onclick)
+{
+	container.append("a").attr("href", "#").style("font-size", "1.5em").html(text).on("click", onclick);
+}
+
 function addBackButton(container)
 {
-	container.append("a").attr("href", "#").style("font-size", "1.5em").html("דף ראשי").on("click", function()
+	addButton(container, "דף ראשי", function()
 	{
 		draw(function()
 		{
 			draw_listWindow();
 		});
-	}).on("style", "");
+	});
 }
 
 function createClickableLink(value, callbackString)

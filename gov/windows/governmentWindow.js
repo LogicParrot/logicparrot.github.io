@@ -14,6 +14,22 @@ var goto_government;
 		container.html("").style("padding", "2em"); // Remove previous content
 		container.append("h1").text("ממשלת ישראל ה" + getHebrewNumber(gov.government));
 		addBackButton(container);
+		if (govNumber > 1)
+		{
+			container.append("br")
+			addButton(container, "הממשלה הקודמת", function()
+			{
+				goto_government(govNumber - 1);
+			});
+		}
+		if (data_governments[govNumber] !== undefined)
+		{
+			container.append("br")
+			addButton(container, "הממשלה הבאה", function()
+			{
+				goto_government(govNumber + 1);
+			});
+		}
 		
 		container.append("h2").text("מידע כללי");
 		var data = [];
