@@ -188,7 +188,7 @@ var gMin; // minimum of gWidth, gHeight
 		{
 			landScapeMessageHasBeenShown = true;
 			d3.select("#landscape").attr("class", "")
-			setTimeout(removeSmartphoneMessage, 7000);
+			setTimeout(removeSmartphoneMessage, 8500);
 		}
 	}
 	function removeSmartphoneMessage()
