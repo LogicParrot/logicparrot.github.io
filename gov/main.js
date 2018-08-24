@@ -183,9 +183,7 @@ var gMin; // minimum of gWidth, gHeight
 	var landScapeMessageHasBeenShown = false;
 	function handleSmartphoneLandscapeMode()
 	{
-		console.log("isSmartPhone", isSmartphone);
-		console.log("height", gHeight, "width", gWidth);
-		
+		console.log("height", gHeight, "width", gWidth);		
 		if ((!landScapeMessageHasBeenShown) && isSmartphone && (gHeight > gWidth))
 		{
 			landScapeMessageHasBeenShown = true;
