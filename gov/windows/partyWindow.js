@@ -20,8 +20,10 @@ var goto_party;
 		var totalPrimeMinister = 0;
 		var participatedGovernments = [];
 		
+		console.log(data_partiesInGovernment);
 		for (var i = 1; i < data_partiesInGovernment.length; i++)
 		{
+			var debug = 0;
 			for (var j = 0; j < data_partiesInGovernment[i].length; j++)
 			{
 				var currentParty = data_partiesInGovernment[i][j];
@@ -43,8 +45,18 @@ var goto_party;
 					pmParty: (gov.pmParty == currentParty.party ? '<div style="background: lightGreen; ">' + gov.pmParty + "</div>" : link_party(gov.pmParty)),
 				}
 				);
+				if (data_governments[i - 1].pmParty == partyName)
+				{
+					debug = 1;
+					totalPrimeMinister++;
+				}
+				break;
 			}
-			if (data_governments[i - 1].pmParty == partyName) totalPrimeMinister++;
+			if (data_governments[i - 1].pmParty == partyName) 
+			{
+				if (debug == 0)
+				console.log("Problem with GOV ", i, ". The pm's party does not appear in the party list");
+			}
 		}
 		
 		var data = [];
